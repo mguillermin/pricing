@@ -2,19 +2,15 @@ package controllers;
 
 import java.text.DecimalFormat;
 
-import org.apache.commons.lang.NumberUtils;
-import org.apache.commons.lang.StringUtils;
-
-import net.sf.oval.constraint.MinLength;
 import models.Detail;
 import models.Line;
 import models.Pricing;
 import models.Profile;
 import models.Section;
-import play.Logger;
-import play.data.validation.Min;
+
+import org.apache.commons.lang.StringUtils;
+
 import play.data.validation.Required;
-import play.exceptions.PlayException;
 import play.mvc.Controller;
 
 public class Pricings extends Controller {
@@ -224,6 +220,7 @@ public class Pricings extends Controller {
     			// Saving new value
     			detail.amount = amount;
     			detail.save();
+    			
     			// Formatting the result to render
     			DecimalFormat df = new DecimalFormat("#.##");
     			renderText(df.format(amount));
@@ -234,4 +231,5 @@ public class Pricings extends Controller {
     		throw new Exception("Exception during pricing detail edition : malformed id");
     	}
     }
+    
 }

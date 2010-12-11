@@ -1,4 +1,6 @@
-#{extends 'main.html' /}
+#{if !request.isAjax()}
+  #{extends 'main.html' /}
+#{/if}
 #{set title:pricing.title /}
 
 <h1><span id="pricing-code-${pricing.id}" class="pricing-code">${pricing.code}</span> - <span id="pricing-title-${pricing.id}" class="pricing-title">${pricing.title}</span></h1>
@@ -8,7 +10,7 @@
 #{/if}
 
 #{set profileCount:pricing.profiles.size() /}
-<table class="pricing">
+<table class="pricing" id="pricing">
   <tr>
   	<th class="title" rowspan="2">Title</th>
   	#{list items:pricing.profiles, as:'profile'}
@@ -78,15 +80,21 @@
 <a href="javascript:void(0)" class="edit" id="toggle-edition">Toggle edition controls</a>
 
 <script type="text/javascript">
+  var refreshPricing = function() {
+    $("body").load('@{Pricings.show(pricing.id)}');
+  }
+  $(".detail-amount").editable('@{Pricings.editDetail()}', {
+    callback: refreshPricing
+  });
+
   var editableOptions = {
-      cancel: 'Cancel',
-      submit: 'Ok',
-      cssclass: 'editable',
-      width: 250
+    cancel: 'Cancel',
+    submit: 'Ok',
+    cssclass: 'editable',
+    width: 250
   };
   $(".section-title").editable('@{Pricings.editSectionTitle()}', editableOptions);
   $(".line-title").editable('@{Pricings.editLineTitle()}', editableOptions);
   $(".pricing-code").editable('@{Pricings.editPricingCode()}', editableOptions);
   $(".pricing-title").editable('@{Pricings.editPricingTitle()}', editableOptions);
-  $(".detail-amount").editable('@{Pricings.editDetail()}');
 </script>
