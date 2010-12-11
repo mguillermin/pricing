@@ -1,0 +1,17 @@
+#{extends 'main.html' /}
+#{set title:'Home' /}
+<h1>Pricings</h1>
+#{if pricings && pricings.size() > 1}
+  <h3>Current pricings</h3>
+  <ul class="pricing-list">
+  #{list items:pricings, as:'pricing'}
+  	<li><a href="@{Pricings.show(pricing.id)}">${pricing.code} - ${pricing.title}</a></li>
+  #{/list}
+  </ul>
+#{/if}
+#{else}
+    <div class="empty">
+        There is currently no pricing.
+    </div>
+#{/else}
+<a href="@{Pricings.editPricing()}">Add a pricing</a>

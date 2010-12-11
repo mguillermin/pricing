@@ -1,0 +1,82 @@
+# you describe your data using the YAML notation here
+# and then load them using Fixtures.load("data.yml")
+
+# Pricing 1
+Pricing(p1):
+  title: Pricing 1
+  code: P1
+
+# Profiles for Pricing 1 
+Profile(p1CP):
+  title: CP
+  rate: 700
+  pricing: p1
+  
+Profile(p1DEV):
+  title: DEV
+  rate: 500
+  pricing: p1
+
+Profile(p1INT):
+  title: INT
+  rate: 400
+  pricing: p1
+
+# Pricing 1 - Section 1 
+Section(sc11):
+  pricing: p1
+  title: Section 1-1
+
+Line(l111):
+  title: Line 1-1-1
+  section: sc11
+
+Detail(dt111CP):
+  line: l111
+  profile: p1CP
+  amount: 1
+
+Detail(dt111DEV):
+  line: l111
+  profile: p1DEV
+  amount: 2
+  
+Line(l112):
+  title: Line 1-1-2
+  section: sc11
+  
+Detail(dt112DEV):
+  line: l112
+  profile: p1DEV
+  amount: 2
+
+Detail(dt112INT):
+  line: l112
+  profile: p1INT
+  amount: 3
+
+# Pricing 1 - Section 2
+Section(sc12):
+  pricing: p1
+  title: Section 1-2
+
+Line(l121):
+  title: Line 1-2-1
+  section: sc12
+
+Detail(dt121CP):
+  line: l121
+  profile: p1CP
+  amount: 4
+
+Detail(dt121INT):
+  line: l121
+  profile: p1INT
+  amount: 3
+
+# Pricing 2
+Pricing(p2):
+  title: Pricing 2
+  code: P2
+
+ 

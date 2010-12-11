@@ -1,0 +1,49 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-family: sans-serif;
+}
+
+table.pricing {
+  border: thin solid black;
+  border-collapse: collapse;
+}
+
+table.pricing tr td, 
+table.pricing tr th {
+  border: thin solid black;
+  padding: 5px;
+}
+table.pricing tr.section, table.pricing tr.section a {
+  background: #5CB1E8;
+  color: white;
+}
+table.pricing tr.total, table.pricing tr.total a {
+  background: #5CB1E8;
+  color: white;
+  font-size:larger;
+  font-weight: bold;
+}
+table.pricing tr th.title {
+  width: 300px;
+}
+table.pricing tr th.profile {
+  width: 50px;
+}
+table.pricing tr td.profile,
+table.pricing tr td.total,
+table.pricing tr th.rate {
+  text-align: right;
+}
+table.pricing tr th.total {
+  width: 150px;
+}
