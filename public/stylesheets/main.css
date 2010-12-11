@@ -13,9 +13,22 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 	font-family: sans-serif;
 }
 
+body {
+  padding: 10px;
+}
+
+h1 {
+  padding-bottom: 10px;
+}
+
+a {
+  color: inherit;
+}
+
 table.pricing {
   border: thin solid black;
   border-collapse: collapse;
+  margin-bottom: 10px;
 }
 
 table.pricing tr td, 
@@ -23,7 +36,7 @@ table.pricing tr th {
   border: thin solid black;
   padding: 5px;
 }
-table.pricing tr.section, table.pricing tr.section a {
+table.pricing tr.section {
   background: #5CB1E8;
   color: white;
 }
@@ -34,7 +47,7 @@ table.pricing tr.total, table.pricing tr.total a {
   font-weight: bold;
 }
 table.pricing tr th.title {
-  width: 300px;
+  width: 500px;
 }
 table.pricing tr th.profile {
   width: 50px;
@@ -45,5 +58,37 @@ table.pricing tr th.rate {
   text-align: right;
 }
 table.pricing tr th.total {
-  width: 150px;
+  width: 130px;
+}
+
+ul.actions {
+  float:right;
+}
+ul.actions li{
+  display:inline;
+  float: left;
+}
+a.add {
+  background: url("../images/add.png") no-repeat;
+  padding-left: 18px;
+}
+a.insert {
+  background: url("../images/table_row_insert.png") no-repeat;
+  padding-left: 18px;
+}
+a.edit {
+  background: url("../images/pencil.png") no-repeat;
+  padding-left: 18px;
+}
+a.delete {
+  background: url("../images/delete.png") no-repeat;
+  padding-left: 18px;
+}
+a.up {
+  background: url("../images/arrow_up.png") no-repeat;
+  padding-left: 18px;
+}
+a.down {
+  background: url("../images/arrow_down.png") no-repeat;
+  padding-left: 18px;
 }

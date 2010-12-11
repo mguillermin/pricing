@@ -26,11 +26,13 @@
     	<tr class="section">
     	  <td>
           ${section.title}
-          <a href="@{Pricings.editSection(pricing.id, section.id)}" class="edit">edit</a>
-          <a href="@{Pricings.deleteSection(section.id)}" class="delete">delete</a>
-          <a href="@{Pricings.editLine(section.id)}" class="add">add a line</a>
-          <a href="@{Pricings.sectionUp(section.id)}" class="up">up</a>
-          <a href="@{Pricings.sectionDown(section.id)}" class="down">down</a>
+          <ul class="actions">
+            <li><a href="@{Pricings.editLine(section.id)}" class="insert" title="Insert a line"></a></li>
+            <li><a href="@{Pricings.editSection(pricing.id, section.id)}" class="edit" title="Edit this section"></a></li>
+            <li><a href="@{Pricings.deleteSection(section.id)}" class="delete" title="Delete this section"></a></li>
+            <li><a href="@{Pricings.sectionUp(section.id)}" class="up" title="Up"></a></li>
+            <li><a href="@{Pricings.sectionDown(section.id)}" class="down" title="Down"></a></li>
+          </ul>
         </td>
         #{list items:pricing.profiles, as:'profile'}
   		<td class="profile">${section.getAmountByProfile(profile).format('#.##')}</td>
@@ -41,10 +43,12 @@
     	  <tr class="line">
     	  	<td>
             ${line.title}
-            <a href="@{Pricings.editLine(section.id, line.id)}" class="edit">edit</a>
-            <a href="@{Pricings.deleteLine(line.id)}" class="delete">delete</a>
-            <a href="@{Pricings.lineUp(line.id)}" class="up">up</a>
-            <a href="@{Pricings.lineDown(line.id)}" class="down">down</a>
+            <ul class="actions">
+              <li><a href="@{Pricings.editLine(section.id, line.id)}" class="edit" title="Edit"></a></li>
+              <li><a href="@{Pricings.deleteLine(line.id)}" class="delete" title="Delete"></a></li>
+              <li><a href="@{Pricings.lineUp(line.id)}" class="up" title="Up"></a></li>
+              <li><a href="@{Pricings.lineDown(line.id)}" class="down" title="Down"></a></li>
+            </ul>
           </td>
   		#{list items:pricing.profiles, as:'profile'}
   		  #{set detail:line.getDetailByProfile(profile) /}
@@ -71,4 +75,5 @@
   </tr>
 </table>
 
-<a href="@{Pricings.editSection(pricing.id)}">Add a section</a>
+<a href="@{Pricings.editSection(pricing.id)}" class="add">Add a section</a>
+<a href="javascript:void(0)" class="edit" id="toggle-edition">Toggle edition controls</a>
