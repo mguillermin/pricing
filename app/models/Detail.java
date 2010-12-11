@@ -17,6 +17,12 @@ public class Detail extends Model {
 
 	public Double amount;
 	
+	public Detail(Line line, Profile profile) {
+		this.line = line;
+		this.profile = profile;
+		this.amount = 0D;
+	}
+	
 	public Detail(Line line, Profile profile, Double amount) {
 		this.line = line;
 		this.profile = profile;

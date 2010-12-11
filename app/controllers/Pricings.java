@@ -1,11 +1,20 @@
 package controllers;
 
+import java.text.DecimalFormat;
+
+import org.apache.commons.lang.NumberUtils;
+import org.apache.commons.lang.StringUtils;
+
 import net.sf.oval.constraint.MinLength;
+import models.Detail;
 import models.Line;
 import models.Pricing;
+import models.Profile;
 import models.Section;
+import play.Logger;
 import play.data.validation.Min;
 import play.data.validation.Required;
+import play.exceptions.PlayException;
 import play.mvc.Controller;
 
 public class Pricings extends Controller {
@@ -143,4 +152,86 @@ public class Pricings extends Controller {
     	show(line.section.pricing.id);
     }
 
+    public static void editSectionTitle(String id, String value) throws Exception {
+    	if (StringUtils.startsWith(id, "section-")) {
+    		id = StringUtils.removeStart(id, "section-");
+    		Section section = Section.findById(Long.valueOf(id));
+    		section.title = value;
+    		section.save();
+        	renderText(value);
+    	} else {
+    		throw new Exception("Exception during section title edition");
+    	}
+    }
+
+    public static void editLineTitle(String id, String value) throws Exception {
+    	if (StringUtils.startsWith(id, "line-")) {
+    		id = StringUtils.removeStart(id, "line-");
+    		Line line = Line.findById(Long.valueOf(id));
+    		line.title = value;
+    		line.save();
+        	renderText(value);
+    	} else {
+    		throw new Exception("Exception during line title edition");
+    	}
+    }
+    
+    public static void editPricingCode(String id, String value) throws Exception {
+    	if (StringUtils.startsWith(id, "pricing-code-")) {
+    		id = StringUtils.removeStart(id, "pricing-code-");
+    		Pricing pricing = Pricing.findById(Long.valueOf(id));
+    		pricing.code = value;
+    		pricing.save();
+        	renderText(value);
+    	} else {
+    		throw new Exception("Exception during pricing code edition");
+    	}    	
+    }
+    
+    public static void editPricingTitle(String id, String value) throws Exception {
+    	if (StringUtils.startsWith(id, "pricing-title-")) {
+    		id = StringUtils.removeStart(id, "pricing-title-");
+    		Pricing pricing = Pricing.findById(Long.valueOf(id));
+    		pricing.title = value;
+    		pricing.save();
+        	renderText(value);
+    	} else {
+    		throw new Exception("Exception during pricing title edition");
+    	}    	
+    }
+    
+    public static void editDetail(String id, String value) throws Exception {
+    	// Managing data input with "," or "." as decimal separator
+    	value = StringUtils.replace(value, ",", ".");
+		Double amount = Double.valueOf(value);
+		
+		// Checking if we are called from a correct element
+    	if (StringUtils.startsWith(id, "detail-")) {
+    		// id should be formed with detail-${line.id}-${profile.id}
+    		String[] splittedId = StringUtils.split(id, "-");
+    		if (splittedId.length == 3) {
+    			// Extracting ids
+    			String lineId = splittedId[1];
+    			String profileId = splittedId[2];
+    			// Getting entities
+    			Line line = Line.findById(Long.valueOf(lineId));
+    			Profile profile = Profile.findById(Long.valueOf(profileId));
+    			Detail detail = line.getDetailByProfile(profile);
+    			// Create Detail if needed
+    			if (detail == null) {
+    				detail = new Detail(line, profile); 
+    			}
+    			// Saving new value
+    			detail.amount = amount;
+    			detail.save();
+    			// Formatting the result to render
+    			DecimalFormat df = new DecimalFormat("#.##");
+    			renderText(df.format(amount));
+    		} else {
+    			throw new Exception("Exception during pricing detail edition : malformed id");
+    		}
+    	} else {
+    		throw new Exception("Exception during pricing detail edition : malformed id");
+    	}
+    }
 }
