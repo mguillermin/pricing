@@ -15,15 +15,17 @@
   	<th class="title" rowspan="2">Title</th>
   	#{list items:pricing.profiles, as:'profile'}
   		<th class="profile">
-        ${profile.title}
-        <a href="@{Pricings.deleteProfile(profile.id)}" class="delete">delete</a>
+        <span id="profile-title-${profile.id}" class="profile-title">${profile.title}</span>
+        <ul class="actions">
+          <li><a href="@{Pricings.deleteProfile(profile.id)}" class="delete"></a></li>
+        </ul>
       </th>
   	#{/list}
   	<th class="total" rowspan="2">Total</th>
   </tr>
   <tr>
   	#{list items:pricing.profiles, as:'profile'}
-  		<th class="rate">${profile.rate.format('# ###.##')} &euro;</th>
+  		<th class="rate"><span id="profile-rate-${profile.id}" class="profile-rate">${profile.rate.format('###.##')}</span> &euro;</th>
   	#{/list}
   </tr>
   #{if pricing.sections && pricing.sections.size() >= 1}
@@ -80,7 +82,7 @@
 </table>
 
 <a href="@{Pricings.editSection(pricing.id)}" class="add">Add a section</a>
-<a href="@{Pricings.addProfile(pricing.id)}">Add a profile</a>
+<a href="@{Pricings.addProfile(pricing.id)}" class="add">Add a profile</a>
 <a href="javascript:void(0)" class="edit" id="toggle-edition">Toggle edition controls</a>
 
 <script type="text/javascript">
@@ -89,6 +91,13 @@
   }
   $(".detail-amount").editable('@{Pricings.editDetail()}', {
     callback: refreshPricing
+  });
+  $(".profile-title").editable('@{Pricings.editProfileTitle()}', {
+	    cssclass: 'editable'
+  });
+  $(".profile-rate").editable('@{Pricings.editProfileRate()}', {
+	  callback: refreshPricing,
+    cssclass: 'editable'
   });
 
   var editableOptions = {
