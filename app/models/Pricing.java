@@ -25,6 +25,7 @@ public class Pricing extends Model {
 	public List<Section> sections;
 	
 	@OneToMany (mappedBy="pricing", cascade = CascadeType.ALL)
+	@OrderBy ("position")
 	public List<Profile> profiles;
 	
 	public static Pricing findByCode(String code) {
@@ -78,6 +79,15 @@ public class Pricing extends Model {
 		for (Section section : sections) {
 			if (section.position.equals(position)) {
 				return section;
+			}
+		}
+		return null;
+	}
+
+	public Profile getProfileByPosition(Long position) {
+		for (Profile profile : profiles) {
+			if (profile.position.equals(position)) {
+				return profile;
 			}
 		}
 		return null;

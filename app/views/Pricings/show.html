@@ -14,7 +14,10 @@
   <tr>
   	<th class="title" rowspan="2">Title</th>
   	#{list items:pricing.profiles, as:'profile'}
-  		<th class="profile">${profile.title}</th>
+  		<th class="profile">
+        ${profile.title}
+        <a href="@{Pricings.deleteProfile(profile.id)}" class="delete">delete</a>
+      </th>
   	#{/list}
   	<th class="total" rowspan="2">Total</th>
   </tr>
@@ -77,6 +80,7 @@
 </table>
 
 <a href="@{Pricings.editSection(pricing.id)}" class="add">Add a section</a>
+<a href="@{Pricings.addProfile(pricing.id)}">Add a profile</a>
 <a href="javascript:void(0)" class="edit" id="toggle-edition">Toggle edition controls</a>
 
 <script type="text/javascript">

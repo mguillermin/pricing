@@ -9,16 +9,19 @@ Pricing(p1):
 # Profiles for Pricing 1 
 Profile(p1CP):
   title: CP
+  position: 1
   rate: 700
   pricing: p1
   
 Profile(p1DEV):
   title: DEV
+  position: 2
   rate: 500
   pricing: p1
 
 Profile(p1INT):
   title: INT
+  position: 3
   rate: 400
   pricing: p1
 

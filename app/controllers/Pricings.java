@@ -147,6 +147,33 @@ public class Pricings extends Controller {
     	line.down();
     	show(line.section.pricing.id);
     }
+    
+    public static void addProfile(Long pricingId) {
+    	Pricing pricing = Pricing.findById(pricingId);
+    	Profile profile = new Profile(pricing);
+    	profile.title = "P" + (pricing.profiles.size() + 1L);
+    	profile.rate = 0D;
+    	profile.save();
+    	show(pricingId);
+    }
+    
+    public static void deleteProfile(Long id) {
+    	Profile profile = Profile.findById(id);
+    	Pricing pricing = profile.pricing;
+    	profile.delete();
+    	show(pricing.id);
+    }
+    
+    public static void editProfileTitle(String id, String value) {
+    	if (StringUtils.startsWith(id, "profile-")) {
+    		String profileId = StringUtils.removeStart(id, "profile-");
+    		Profile profile = Profile.findById(Long.valueOf(profileId));
+    		profile.title = value;
+    		profile.save();
+        	show(profile.pricing.id);
+    	}
+    	renderText(value);
+    }
 
     public static void editSectionTitle(String id, String value) throws Exception {
     	if (StringUtils.startsWith(id, "section-")) {
@@ -232,4 +259,14 @@ public class Pricings extends Controller {
     	}
     }
     
+    public static void editProfileRate(String id, String value) {
+    	if (StringUtils.startsWith(id, "profile-")) {
+    		String profileId = StringUtils.removeStart(id, "profile-");
+    		Profile profile = Profile.findById(Long.valueOf(profileId));
+    		profile.rate = Double.parseDouble(value);
+    		profile.save();
+        	show(profile.pricing.id);
+    	}
+    	renderText(value);
+    }
 }
