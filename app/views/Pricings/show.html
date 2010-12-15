@@ -34,7 +34,7 @@
     	  <td>
             <span id="section-${section.id}" class="section-title">${section.title}</span>
             <ul class="actions">
-              <li><a href="@{Pricings.editLine(section.id)}" class="insert" title="Insert a line"></a></li>
+              <li><a href="@{Pricings.addLine(section.id)}" class="insert" title="Insert a line"></a></li>
               <li><a href="@{Pricings.deleteSection(section.id)}" class="delete" title="Delete this section"></a></li>
               <li><a href="@{Pricings.sectionUp(section.id)}" class="up" title="Up"></a></li>
               <li><a href="@{Pricings.sectionDown(section.id)}" class="down" title="Down"></a></li>
@@ -81,7 +81,7 @@
   </tr>
 </table>
 
-<a href="@{Pricings.editSection(pricing.id)}" class="add">Add a section</a>
+<a href="@{Pricings.addSection(pricing.id)}" class="add">Add a section</a>
 <a href="@{Pricings.addProfile(pricing.id)}" class="add">Add a profile</a>
 <a href="javascript:void(0)" class="edit" id="toggle-edition">Toggle edition controls</a>
 
