@@ -1,12 +1,17 @@
 package models;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.envers.Audited;
+
 import play.data.validation.Required;
+import play.db.jpa.JPABase;
 import play.db.jpa.Model;
 
 @Entity
+@Audited
 public class Detail extends Model {
 
 	@ManyToOne
@@ -17,6 +22,16 @@ public class Detail extends Model {
 
 	public Double amount;
 	
+	
+	/**
+	 * Overriding save to notify pricing of the modification
+	 */
+	@Override
+	public <T extends JPABase> T save() {
+		line.section.pricing.updateModifiedAt();
+		return super.save();
+	}
+
 	public Detail(Line line, Profile profile) {
 		this.line = line;
 		this.profile = profile;

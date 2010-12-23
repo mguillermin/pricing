@@ -16,9 +16,13 @@
   	#{list items:pricing.profiles, as:'profile'}
   		<th class="profile">
         <span id="profile-title-${profile.id}" class="profile-title">${profile.title}</span>
-        <ul class="actions">
-          <li><a href="@{Pricings.deleteProfile(profile.id)}" class="delete"></a></li>
-        </ul>
+        #{if editable}
+          <ul class="actions">
+            <li><a href="@{Pricings.deleteProfile(profile.id)}" class="delete"></a></li>
+            <li><a href="@{Pricings.profileUp(profile.id)}" class="left"></a></li>
+            <li><a href="@{Pricings.profileDown(profile.id)}" class="right"></a></li>
+          </ul>
+        #{/if}
       </th>
   	#{/list}
   	<th class="total" rowspan="2">Total</th>
@@ -33,12 +37,14 @@
     	<tr class="section">
     	  <td>
             <span id="section-${section.id}" class="section-title">${section.title}</span>
-            <ul class="actions">
-              <li><a href="@{Pricings.addLine(section.id)}" class="insert" title="Insert a line"></a></li>
-              <li><a href="@{Pricings.deleteSection(section.id)}" class="delete" title="Delete this section"></a></li>
-              <li><a href="@{Pricings.sectionUp(section.id)}" class="up" title="Up"></a></li>
-              <li><a href="@{Pricings.sectionDown(section.id)}" class="down" title="Down"></a></li>
-            </ul>
+            #{if editable}
+              <ul class="actions">
+                <li><a href="@{Pricings.addLine(section.id)}" class="insert" title="Insert a line"></a></li>
+                <li><a href="@{Pricings.deleteSection(section.id)}" class="delete" title="Delete this section"></a></li>
+                <li><a href="@{Pricings.sectionUp(section.id)}" class="up" title="Up"></a></li>
+                <li><a href="@{Pricings.sectionDown(section.id)}" class="down" title="Down"></a></li>
+              </ul>
+            #{/if}
           </td>
         #{list items:pricing.profiles, as:'profile'}
   		<td class="profile">${section.getAmountByProfile(profile).format('#.##')}</td>
@@ -49,11 +55,13 @@
     	  <tr class="line">
     	  	<td>
               <span id="line-${line.id}" class="line-title">${line.title}</span>
-              <ul class="actions">
-                <li><a href="@{Pricings.deleteLine(line.id)}" class="delete" title="Delete"></a></li>
-                <li><a href="@{Pricings.lineUp(line.id)}" class="up" title="Up"></a></li>
-                <li><a href="@{Pricings.lineDown(line.id)}" class="down" title="Down"></a></li>
-              </ul>
+              #{if editable}
+                <ul class="actions">
+                  <li><a href="@{Pricings.deleteLine(line.id)}" class="delete" title="Delete"></a></li>
+                  <li><a href="@{Pricings.lineUp(line.id)}" class="up" title="Up"></a></li>
+                  <li><a href="@{Pricings.lineDown(line.id)}" class="down" title="Down"></a></li>
+                </ul>
+              #{/if}
           </td>
   		#{list items:pricing.profiles, as:'profile'}
   		  #{set detail:line.getDetailByProfile(profile) /}
@@ -81,33 +89,47 @@
   </tr>
 </table>
 
-<a href="@{Pricings.addSection(pricing.id)}" class="add">Add a section</a>
-<a href="@{Pricings.addProfile(pricing.id)}" class="add">Add a profile</a>
-<a href="javascript:void(0)" class="edit" id="toggle-edition">Toggle edition controls</a>
+#{if editable}
+  <a href="@{Pricings.addSection(pricing.id)}" class="add">Add a section</a>
+  <a href="@{Pricings.addProfile(pricing.id)}" class="add">Add a profile</a>
+  <a href="javascript:void(0)" class="edit" id="toggle-edition">Toggle edition controls</a>
+#{/if}
 
-<script type="text/javascript">
-  var refreshPricing = function() {
-    $("body").load('@{Pricings.show(pricing.id)}');
-  }
-  $(".detail-amount").editable('@{Pricings.editDetail()}', {
-    callback: refreshPricing
-  });
-  $(".profile-title").editable('@{Pricings.editProfileTitle()}', {
-	    cssclass: 'editable'
-  });
-  $(".profile-rate").editable('@{Pricings.editProfileRate()}', {
-	  callback: refreshPricing,
-    cssclass: 'editable'
-  });
+<h3>Versions</h3>
+#{if revision}
+  <a href="@{Pricings.show(pricing.id)}">Show current version</a>
+#{/if}
+<ul>
+#{list items:revisions.keySet(), as:'version'}
+  <li><a href="@{Pricings.showRevision(pricing.id, version)}">Show version ${version} - ${revisions.get(version)}</a></li>
+#{/list}
+</ul>
 
-  var editableOptions = {
-    cancel: 'Cancel',
-    submit: 'Ok',
-    cssclass: 'editable',
-    width: 250
-  };
-  $(".section-title").editable('@{Pricings.editSectionTitle()}', editableOptions);
-  $(".line-title").editable('@{Pricings.editLineTitle()}', editableOptions);
-  $(".pricing-code").editable('@{Pricings.editPricingCode()}', editableOptions);
-  $(".pricing-title").editable('@{Pricings.editPricingTitle()}', editableOptions);
-</script>
+#{if editable}
+  <script type="text/javascript">
+    var refreshPricing = function() {
+      $("body").load('@{Pricings.show(pricing.id)}');
+    }
+    $(".detail-amount").editable('@{Pricings.editDetail()}', {
+      callback: refreshPricing
+    });
+    $(".profile-title").editable('@{Pricings.editProfileTitle()}', {
+  	    cssclass: 'editable'
+    });
+    $(".profile-rate").editable('@{Pricings.editProfileRate()}', {
+  	  callback: refreshPricing,
+      cssclass: 'editable'
+    });
+  
+    var editableOptions = {
+      cancel: 'Cancel',
+      submit: 'Ok',
+      cssclass: 'editable',
+      width: 250
+    };
+    $(".section-title").editable('@{Pricings.editSectionTitle()}', editableOptions);
+    $(".line-title").editable('@{Pricings.editLineTitle()}', editableOptions);
+    $(".pricing-code").editable('@{Pricings.editPricingCode()}', editableOptions);
+    $(".pricing-title").editable('@{Pricings.editPricingTitle()}', editableOptions);
+  </script>
+#{/if}

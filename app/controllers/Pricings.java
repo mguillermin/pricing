@@ -1,6 +1,13 @@
 package controllers;
 
 import java.text.DecimalFormat;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import models.Detail;
 import models.Line;
@@ -9,8 +16,12 @@ import models.Profile;
 import models.Section;
 
 import org.apache.commons.lang.StringUtils;
+import org.hibernate.envers.AuditReader;
+import org.hibernate.envers.AuditReaderFactory;
 
+import play.Logger;
 import play.data.validation.Required;
+import play.db.jpa.JPA;
 import play.mvc.Controller;
 
 public class Pricings extends Controller {
@@ -21,7 +32,18 @@ public class Pricings extends Controller {
 	 */
     public static void show(Long id) {
     	Pricing pricing = Pricing.findById(id);
-    	render(pricing);
+
+    	Map<Number, Date> revisions = getPricingRevisions(id);
+    	boolean editable = true;
+    	render(pricing, revisions, editable);
+    }
+
+    public static void showRevision(Long id, Integer revision) {
+    	AuditReader ar = AuditReaderFactory.get(JPA.em());
+    	Pricing pricing = ar.find(Pricing.class, id, revision);
+    	Map<Number, Date> revisions = getPricingRevisions(id);
+    	boolean editable = false;
+    	renderTemplate("Pricings/show.html", pricing, revision, revisions, editable);
     }
 
     /**
@@ -116,12 +138,32 @@ public class Pricings extends Controller {
 
     /**
      * Push down a line
-     * @param lineId id of the Section
+     * @param lineId id of the Line
      */
     public static void lineDown(Long lineId) {
     	Line line = Line.findById(lineId);
     	line.down();
     	show(line.section.pricing.id);
+    }
+    
+    /**
+     * Pull up a profile
+     * @param profileId id of the Profile
+     */
+    public static void profileUp(Long profileId) {
+    	Profile profile = Profile.findById(profileId);
+    	profile.up();
+    	show(profile.pricing.id);
+    }
+
+    /**
+     * Push down a profile
+     * @param profileId id of the Profile
+     */
+    public static void profileDown(Long profileId) {
+    	Profile profile = Profile.findById(profileId);
+    	profile.down();
+    	show(profile.pricing.id);
     }
     
     /**
@@ -326,4 +368,17 @@ public class Pricings extends Controller {
     	renderText(value);
     }
 
+	private static Map<Number, Date> getPricingRevisions(Long id) {
+		AuditReader ar = AuditReaderFactory.get(JPA.em());
+		// We use a TreeMap with a reverse Comparator to get the most recent revisions first
+    	Map<Number, Date> revisions = new TreeMap<Number, Date>(Collections.reverseOrder());
+    	List<Number> revisionNumbers = ar.getRevisions(Pricing.class, id);
+    	for (Number revisionNumber : revisionNumbers) {
+    		Date revisionDate = ar.getRevisionDate(revisionNumber);
+    		revisions.put(revisionNumber, revisionDate);
+		}
+		return revisions;
+	}
+
+    
 }

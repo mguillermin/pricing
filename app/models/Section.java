@@ -9,11 +9,15 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 
+import org.hibernate.envers.Audited;
+
 import play.Logger;
 import play.data.validation.Required;
+import play.db.jpa.JPABase;
 import play.db.jpa.Model;
 
 @Entity
+@Audited
 public class Section extends Model {
 
 	@Required
@@ -30,6 +34,15 @@ public class Section extends Model {
 	@OneToMany(mappedBy="section", cascade=CascadeType.ALL)
 	@OrderBy("position")
 	public List<Line> lines;
+	
+	/**
+	 * Overriding save to notify pricing of the modification
+	 */
+	@Override
+	public <T extends JPABase> T save() {
+		pricing.updateModifiedAt();
+		return super.save();
+	}
 	
 	public Section(Pricing pricing, String title) {
 		this.pricing = pricing;

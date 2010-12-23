@@ -8,10 +8,14 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import org.hibernate.envers.Audited;
+
 import play.data.validation.Required;
+import play.db.jpa.JPABase;
 import play.db.jpa.Model;
 
 @Entity
+@Audited
 public class Profile extends Model {
 
 	@Required
@@ -22,17 +26,26 @@ public class Profile extends Model {
 	
 	public Double rate;
 	
-	@ManyToOne
+	@ManyToOne (cascade=CascadeType.PERSIST)
 	public Pricing pricing;
 		
 	@OneToMany (mappedBy="profile", cascade=CascadeType.ALL)
 	public Set<Detail> details;
-
+	
 	public Profile(Pricing pricing) {
 		this.pricing = pricing;
 		this.position = this.pricing.profiles.size() + 1L;
 	}
-	
+
+	/**
+	 * Overriding save to notify pricing of the modification
+	 */
+	@Override
+	public <T extends JPABase> T save() {
+		pricing.updateModifiedAt();
+		return super.save();
+	}
+
 	public void up() {
 		Profile previousProfile = pricing.getProfileByPosition(position - 1);
 		if (previousProfile != null) {

@@ -1,5 +1,6 @@
 package models;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -8,10 +9,13 @@ import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.UniqueConstraint;
 
+import org.hibernate.envers.Audited;
+
 import play.data.validation.Required;
 import play.db.jpa.Model;
 
 @Entity
+@Audited
 public class Pricing extends Model {
 
 	@Required
@@ -20,6 +24,8 @@ public class Pricing extends Model {
 	@Required
 	public String title;
 	
+	public Date modifiedAt;
+	
 	@OneToMany (mappedBy="pricing", cascade = CascadeType.ALL)
 	@OrderBy ("position")
 	public List<Section> sections;
@@ -27,6 +33,14 @@ public class Pricing extends Model {
 	@OneToMany (mappedBy="pricing", cascade = CascadeType.ALL)
 	@OrderBy ("position")
 	public List<Profile> profiles;
+	
+	/**
+	 * Used by other entities to notify pricing of a modification
+	 */
+	public void updateModifiedAt() {
+		modifiedAt = new Date();
+		save();
+	}
 	
 	public static Pricing findByCode(String code) {
 		Pricing chiffrage = Pricing.find("byCode", code).first();

@@ -94,6 +94,14 @@ a.down {
   background: url("../images/arrow_down.png") no-repeat;
   padding-left: 18px;
 }
+a.left {
+  background: url("../images/arrow_left.png") no-repeat;
+  padding-left: 18px;
+}
+a.right {
+  background: url("../images/arrow_right.png") no-repeat;
+  padding-left: 18px;
+}
 
 /**
  * Edit in-place
