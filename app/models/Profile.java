@@ -42,7 +42,7 @@ public class Profile extends Model {
 	 */
 	@Override
 	public <T extends JPABase> T save() {
-		pricing.updateModifiedAt();
+		pricing.updateUpdatedAt();
 		return super.save();
 	}
 

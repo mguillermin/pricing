@@ -24,7 +24,7 @@ public class Pricing extends Model {
 	@Required
 	public String title;
 	
-	public Date modifiedAt;
+	public Date updatedAt;
 	
 	@OneToMany (mappedBy="pricing", cascade = CascadeType.ALL)
 	@OrderBy ("position")
@@ -37,9 +37,13 @@ public class Pricing extends Model {
 	/**
 	 * Used by other entities to notify pricing of a modification
 	 */
-	public void updateModifiedAt() {
-		modifiedAt = new Date();
+	public void updateUpdatedAt() {
+		updatedAt = new Date();
 		save();
+	}
+	
+	public Pricing() {
+		updatedAt = new Date();
 	}
 	
 	public static Pricing findByCode(String code) {

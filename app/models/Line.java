@@ -37,7 +37,7 @@ public class Line extends Model {
 	 */
 	@Override
 	public <T extends JPABase> T save() {
-		section.pricing.updateModifiedAt();
+		section.pricing.updateUpdatedAt();
 		return super.save();
 	}
 	

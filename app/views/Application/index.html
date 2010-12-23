@@ -2,10 +2,10 @@
 #{set title:'Home' /}
 <h1>Pricings</h1>
 #{if pricings && pricings.size() > 1}
-  <h3>Current pricings</h3>
+  <h3>Last updated pricings</h3>
   <ul class="pricing-list">
   #{list items:pricings, as:'pricing'}
-  	<li><a href="@{Pricings.show(pricing.id)}">${pricing.code} - ${pricing.title}</a></li>
+  	<li><a href="@{Pricings.show(pricing.id)}">${pricing.code} - ${pricing.title}</a> <i>[modified ${pricing.updatedAt.since()}]</i></li>
   #{/list}
   </ul>
 #{/if}
@@ -14,4 +14,4 @@
         There is currently no pricing.
     </div>
 #{/else}
-<a href="@{Pricings.editPricing()}">Add a pricing</a>
+<a class="add" href="@{Pricings.editPricing()}">Add a pricing</a>

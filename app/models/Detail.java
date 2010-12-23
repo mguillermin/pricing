@@ -28,7 +28,7 @@ public class Detail extends Model {
 	 */
 	@Override
 	public <T extends JPABase> T save() {
-		line.section.pricing.updateModifiedAt();
+		line.section.pricing.updateUpdatedAt();
 		return super.save();
 	}
 

@@ -96,12 +96,16 @@
 #{/if}
 
 <h3>Versions</h3>
+*{ If we are displaying a previous revision, we add a link to return to the last version }*
 #{if revision}
   <a href="@{Pricings.show(pricing.id)}">Show current version</a>
 #{/if}
 <ul>
+
+*{ We do not display the "revision" value but successive numbers for one pricing }*
+#{set nbRevisions: revisions.keySet().size() /}
 #{list items:revisions.keySet(), as:'version'}
-  <li><a href="@{Pricings.showRevision(pricing.id, version)}">Show version ${version} - ${revisions.get(version)}</a></li>
+  <li><a href="@{Pricings.showRevision(pricing.id, version)}">Show version ${nbRevisions--} - ${revisions.get(version)}</a></li>
 #{/list}
 </ul>
 
