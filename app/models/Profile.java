@@ -37,15 +37,6 @@ public class Profile extends Model {
 		this.position = this.pricing.profiles.size() + 1L;
 	}
 
-	/**
-	 * Overriding save to notify pricing of the modification
-	 */
-	@Override
-	public <T extends JPABase> T save() {
-		pricing.updateUpdatedAt();
-		return super.save();
-	}
-
 	public void up() {
 		Profile previousProfile = pricing.getProfileByPosition(position - 1);
 		if (previousProfile != null) {

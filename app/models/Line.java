@@ -32,15 +32,6 @@ public class Line extends Model {
 	@OneToMany (mappedBy="line", cascade=CascadeType.ALL)
 	public Set<Detail> details;
 	
-	/**
-	 * Overriding save to notify pricing of the modification
-	 */
-	@Override
-	public <T extends JPABase> T save() {
-		section.pricing.updateUpdatedAt();
-		return super.save();
-	}
-	
 	public Line(Section section, String title) {
 		this.section = section;
 		this.title = title;

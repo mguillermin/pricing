@@ -7,9 +7,10 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
-import javax.persistence.UniqueConstraint;
 
 import org.hibernate.envers.Audited;
+
+import controllers.Security;
 
 import play.data.validation.Required;
 import play.db.jpa.Model;
@@ -26,6 +27,8 @@ public class Pricing extends Model {
 	
 	public Date updatedAt;
 	
+	public String updateBy;
+	
 	@OneToMany (mappedBy="pricing", cascade = CascadeType.ALL)
 	@OrderBy ("position")
 	public List<Section> sections;
@@ -37,8 +40,9 @@ public class Pricing extends Model {
 	/**
 	 * Used by other entities to notify pricing of a modification
 	 */
-	public void updateUpdatedAt() {
-		updatedAt = new Date();
+	public void update(Date date, String username) {
+		updatedAt = date;
+		updateBy = username;
 		save();
 	}
 	

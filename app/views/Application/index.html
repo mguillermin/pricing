@@ -1,17 +1,17 @@
 #{extends 'main.html' /}
 #{set title:'Home' /}
-<h1>Pricings</h1>
+<h1>&{'pricings.list'}</h1>
 #{if pricings && pricings.size() > 1}
-  <h3>Last updated pricings</h3>
+  <h3>&{'pricings.last.updated'}</h3>
   <ul class="pricing-list">
   #{list items:pricings, as:'pricing'}
-  	<li><a href="@{Pricings.show(pricing.id)}">${pricing.code} - ${pricing.title}</a> <i>[modified ${pricing.updatedAt.since()}]</i></li>
+  	<li><a href="@{Pricings.show(pricing.id)}">${pricing.code} - ${pricing.title}</a> <i>[&{'pricing.modified'} ${pricing.updatedAt.since()}]</i></li>
   #{/list}
   </ul>
 #{/if}
 #{else}
     <div class="empty">
-        There is currently no pricing.
+        &{'pricings.list.empty'}
     </div>
 #{/else}
-<a class="add" href="@{Pricings.editPricing()}">Add a pricing</a>
+<a class="add" href="@{Pricings.editPricing()}">&{'pricing.add'}</a>

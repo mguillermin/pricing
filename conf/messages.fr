@@ -1,0 +1,32 @@
+# You can specialize this file for each language.
+# For example, for French create a messages.fr file
+#
+home=Accueil
+
+pricings.list=Chiffrages
+pricings.list.empty=Il n'y a pas de chiffrages enregistrés pour l'instant
+pricings.last.updated=Derniers chiffrages mis à jour :
+
+
+pricing.add=Créer un chiffrage
+pricing.modified=modifié
+pricing.col.title=Intitulé
+pricing.col.total=Total
+pricing.section.add=Ajouter une section
+pricing.profile.add=Ajouter un profil
+pricing.edit.controls.toggle=Afficher/Masquer les contrôles d'édition
+
+pricing.versions.list=Versions
+pricing.version.show.current=Afficher la version courante
+pricing.version.show=Afficher la version
+pricing.version.updatedAt=mise à jour le
+pricing.version.updatedBy=par
+
+# For use in JavaExtensions.since tag
+since.seconds = il y a %s seconde%s
+since.minutes = il y a %s minute%s
+since.hours   = il y a %s heure%s
+since.days    = il y a %s jour%s
+since.months  = il y a %s mois
+since.years   = il y a %s année%s
+since.format  = d MMMM yyyy

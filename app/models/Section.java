@@ -35,15 +35,6 @@ public class Section extends Model {
 	@OrderBy("position")
 	public List<Line> lines;
 	
-	/**
-	 * Overriding save to notify pricing of the modification
-	 */
-	@Override
-	public <T extends JPABase> T save() {
-		pricing.updateUpdatedAt();
-		return super.save();
-	}
-	
 	public Section(Pricing pricing, String title) {
 		this.pricing = pricing;
 		this.title = title;

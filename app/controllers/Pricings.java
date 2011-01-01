@@ -19,11 +19,16 @@ import org.apache.commons.lang.StringUtils;
 import org.hibernate.envers.AuditReader;
 import org.hibernate.envers.AuditReaderFactory;
 
+import com.sun.tools.javac.resources.version;
+
 import play.Logger;
 import play.data.validation.Required;
 import play.db.jpa.JPA;
 import play.mvc.Controller;
+import play.mvc.With;
+import utils.VersionInfo;
 
+@With(Secure.class)
 public class Pricings extends Controller {
 
 	/**
@@ -33,7 +38,7 @@ public class Pricings extends Controller {
     public static void show(Long id) {
     	Pricing pricing = Pricing.findById(id);
 
-    	Map<Number, Date> revisions = getPricingRevisions(id);
+    	Map<Number, VersionInfo> revisions = getPricingRevisions(id);
     	boolean editable = true;
     	render(pricing, revisions, editable);
     }
@@ -41,7 +46,7 @@ public class Pricings extends Controller {
     public static void showRevision(Long id, Integer revision) {
     	AuditReader ar = AuditReaderFactory.get(JPA.em());
     	Pricing pricing = ar.find(Pricing.class, id, revision);
-    	Map<Number, Date> revisions = getPricingRevisions(id);
+    	Map<Number, VersionInfo> revisions = getPricingRevisions(id);
     	boolean editable = false;
     	renderTemplate("Pricings/show.html", pricing, revision, revisions, editable);
     }
@@ -54,6 +59,7 @@ public class Pricings extends Controller {
     	Section section = Section.findById(id);
     	Pricing pricing = section.pricing;
     	section.delete();
+    	updatePricing(pricing);
     	show(pricing.id);
     }
 
@@ -65,6 +71,7 @@ public class Pricings extends Controller {
     	Line line = Line.findById(id);
     	Pricing pricing = line.section.pricing;
     	line.delete();
+    	updatePricing(pricing);
     	show(pricing.id);
     }
     
@@ -77,6 +84,7 @@ public class Pricings extends Controller {
     		Pricing pricing = Pricing.findById(pricingId);
     		params.put("code", pricing.code);
     		params.put("title", pricing.title);
+        	updatePricing(pricing);
     	}
     	render();
     }
@@ -102,7 +110,7 @@ public class Pricings extends Controller {
     	pricing.code = code;
     	pricing.title = title;
     	pricing.save();
-    	
+    	updatePricing(pricing);
     	Application.index();
     }
     
@@ -113,6 +121,7 @@ public class Pricings extends Controller {
     public static void sectionUp(Long sectionId) {
     	Section section = Section.findById(sectionId);
     	section.up();
+    	updatePricing(section.pricing);
     	show(section.pricing.id);
     }
 
@@ -123,6 +132,7 @@ public class Pricings extends Controller {
     public static void sectionDown(Long sectionId) {
     	Section section = Section.findById(sectionId);
     	section.down();
+    	updatePricing(section.pricing);
     	show(section.pricing.id);
     }
 
@@ -133,6 +143,7 @@ public class Pricings extends Controller {
     public static void lineUp(Long lineId) {
     	Line line = Line.findById(lineId);
     	line.up();
+    	updatePricing(line.section.pricing);
     	show(line.section.pricing.id);
     }
 
@@ -143,6 +154,7 @@ public class Pricings extends Controller {
     public static void lineDown(Long lineId) {
     	Line line = Line.findById(lineId);
     	line.down();
+    	updatePricing(line.section.pricing);
     	show(line.section.pricing.id);
     }
     
@@ -153,6 +165,7 @@ public class Pricings extends Controller {
     public static void profileUp(Long profileId) {
     	Profile profile = Profile.findById(profileId);
     	profile.up();
+    	updatePricing(profile.pricing);
     	show(profile.pricing.id);
     }
 
@@ -163,6 +176,7 @@ public class Pricings extends Controller {
     public static void profileDown(Long profileId) {
     	Profile profile = Profile.findById(profileId);
     	profile.down();
+    	updatePricing(profile.pricing);
     	show(profile.pricing.id);
     }
     
@@ -176,6 +190,7 @@ public class Pricings extends Controller {
     	profile.title = "P" + (pricing.profiles.size() + 1L);
     	profile.rate = 0D;
     	profile.save();
+    	updatePricing(pricing);
     	show(pricingId);
     }
     
@@ -187,6 +202,7 @@ public class Pricings extends Controller {
     	Pricing pricing = Pricing.findById(pricingId);
     	Section section = new Section(pricing, "Section " + String.valueOf(pricing.sections.size() + 1L));
     	section.save();
+    	updatePricing(pricing);
     	show(pricingId);
     }
     
@@ -198,6 +214,7 @@ public class Pricings extends Controller {
     	Section section = Section.findById(sectionId);
     	Line line = new Line(section, "Line " + String.valueOf(section.lines.size() +1L));
     	line.save();
+    	updatePricing(section.pricing);
     	show(section.pricing.id);
     }
     
@@ -209,6 +226,7 @@ public class Pricings extends Controller {
     	Profile profile = Profile.findById(id);
     	Pricing pricing = profile.pricing;
     	profile.delete();
+    	updatePricing(pricing);
     	show(pricing.id);
     }
     
@@ -224,6 +242,7 @@ public class Pricings extends Controller {
     		Section section = Section.findById(Long.valueOf(id));
     		section.title = value;
     		section.save();
+        	updatePricing(section.pricing);
         	renderText(value);
     	} else {
     		throw new Exception("Exception during section title edition");
@@ -243,6 +262,7 @@ public class Pricings extends Controller {
     		Line line = Line.findById(Long.valueOf(id));
     		line.title = value;
     		line.save();
+        	updatePricing(line.section.pricing);
         	renderText(value);
     	} else {
     		throw new Exception("Exception during line title edition");
@@ -262,6 +282,7 @@ public class Pricings extends Controller {
     		Pricing pricing = Pricing.findById(Long.valueOf(id));
     		pricing.code = value;
     		pricing.save();
+        	updatePricing(pricing);
         	renderText(value);
     	} else {
     		throw new Exception("Exception during pricing code edition");
@@ -281,6 +302,7 @@ public class Pricings extends Controller {
     		Pricing pricing = Pricing.findById(Long.valueOf(id));
     		pricing.title = value;
     		pricing.save();
+        	updatePricing(pricing);
         	renderText(value);
     	} else {
     		throw new Exception("Exception during pricing title edition");
@@ -321,6 +343,7 @@ public class Pricings extends Controller {
     			
     			// Formatting the result to render
     			DecimalFormat df = new DecimalFormat("#.##");
+    	    	updatePricing(detail.profile.pricing);
     			renderText(df.format(amount));
     		} else {
     			throw new Exception("Exception during pricing detail edition : malformed id");
@@ -345,6 +368,7 @@ public class Pricings extends Controller {
     		profile.save();
     		// Formatting the result to render
 			DecimalFormat df = new DecimalFormat("#.##");
+	    	updatePricing(profile.pricing);
 			renderText(df.format(profile.rate));
     	}
     	renderText(value);
@@ -363,22 +387,38 @@ public class Pricings extends Controller {
     		Profile profile = Profile.findById(Long.valueOf(profileId));
     		profile.title = value;
     		profile.save();
+        	updatePricing(profile.pricing);
         	renderText(profile.title);
     	}
     	renderText(value);
     }
 
-	private static Map<Number, Date> getPricingRevisions(Long id) {
+    /**
+     * Retrieve all the revisions of a given pricing
+     * @param id
+     * @return
+     */
+	private static Map<Number, VersionInfo> getPricingRevisions(Long id) {
 		AuditReader ar = AuditReaderFactory.get(JPA.em());
 		// We use a TreeMap with a reverse Comparator to get the most recent revisions first
-    	Map<Number, Date> revisions = new TreeMap<Number, Date>(Collections.reverseOrder());
+    	Map<Number, VersionInfo> revisions = new TreeMap<Number, VersionInfo>(Collections.reverseOrder());
     	List<Number> revisionNumbers = ar.getRevisions(Pricing.class, id);
     	for (Number revisionNumber : revisionNumbers) {
-    		Date revisionDate = ar.getRevisionDate(revisionNumber);
-    		revisions.put(revisionNumber, revisionDate);
+    		Pricing pricing = ar.find(Pricing.class, id, revisionNumber);
+    		VersionInfo versionInfo = new VersionInfo();
+    		versionInfo.version = revisionNumber;
+    		versionInfo.updatedBy = pricing.updateBy;
+    		versionInfo.updatedAt = pricing.updatedAt;
+    		revisions.put(revisionNumber, versionInfo);
 		}
 		return revisions;
 	}
 
-    
+	/**
+	 * Update fields updatedAt & updateBy of the pricing
+	 * @param pricing
+	 */
+	protected static void updatePricing(Pricing pricing) {
+		pricing.update(new Date(), Security.connected());
+	}
 }

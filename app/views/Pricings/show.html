@@ -12,7 +12,7 @@
 #{set profileCount:pricing.profiles.size() /}
 <table class="pricing" id="pricing">
   <tr>
-  	<th class="title" rowspan="2">Title</th>
+  	<th class="title" rowspan="2">&{'pricing.col.title'}</th>
   	#{list items:pricing.profiles, as:'profile'}
   		<th class="profile">
         <span id="profile-title-${profile.id}" class="profile-title">${profile.title}</span>
@@ -25,7 +25,7 @@
         #{/if}
       </th>
   	#{/list}
-  	<th class="total" rowspan="2">Total</th>
+  	<th class="total" rowspan="2">&{'pricing.col.total'}</th>
   </tr>
   <tr>
   	#{list items:pricing.profiles, as:'profile'}
@@ -90,22 +90,22 @@
 </table>
 
 #{if editable}
-  <a href="@{Pricings.addSection(pricing.id)}" class="add">Add a section</a>
-  <a href="@{Pricings.addProfile(pricing.id)}" class="add">Add a profile</a>
-  <a href="javascript:void(0)" class="edit" id="toggle-edition">Toggle edition controls</a>
+  <a href="@{Pricings.addSection(pricing.id)}" class="add">&{'pricing.section.add'}</a>
+  <a href="@{Pricings.addProfile(pricing.id)}" class="add">&{'pricing.profile.add'}</a>
+  <a href="javascript:void(0)" class="edit" id="toggle-edition">&{'pricing.edit.controls.toggle'}</a>
 #{/if}
 
-<h3>Versions</h3>
+<h3>&{'pricing.versions.list'}</h3>
 *{ If we are displaying a previous revision, we add a link to return to the last version }*
 #{if revision}
-  <a href="@{Pricings.show(pricing.id)}">Show current version</a>
+  <a href="@{Pricings.show(pricing.id)}">&{'pricing.version.show.current'}</a>
 #{/if}
 <ul>
 
 *{ We do not display the "revision" value but successive numbers for one pricing }*
 #{set nbRevisions: revisions.keySet().size() /}
 #{list items:revisions.keySet(), as:'version'}
-  <li><a href="@{Pricings.showRevision(pricing.id, version)}">Show version ${nbRevisions--} - ${revisions.get(version)}</a></li>
+  <li><a href="@{Pricings.showRevision(pricing.id, version)}">&{'pricing.version.show'} ${nbRevisions--} - &{'pricing.version.updatedAt'} ${revisions.get(version).updatedAt.format('dd/MM/yyyy hh:mm:ss')} &{'pricing.version.updatedBy'} ${revisions.get(version).updatedBy}</a></li>
 #{/list}
 </ul>
 

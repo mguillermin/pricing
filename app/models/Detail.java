@@ -22,16 +22,6 @@ public class Detail extends Model {
 
 	public Double amount;
 	
-	
-	/**
-	 * Overriding save to notify pricing of the modification
-	 */
-	@Override
-	public <T extends JPABase> T save() {
-		line.section.pricing.updateUpdatedAt();
-		return super.save();
-	}
-
 	public Detail(Line line, Profile profile) {
 		this.line = line;
 		this.profile = profile;
