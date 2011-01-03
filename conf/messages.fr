@@ -2,6 +2,7 @@
 # For example, for French create a messages.fr file
 #
 home=Accueil
+logout=Se déconnecter
 
 pricings.list=Chiffrages
 pricings.list.empty=Il n'y a pas de chiffrages enregistrés pour l'instant
