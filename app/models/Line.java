@@ -38,19 +38,30 @@ public class Line extends Model {
 		this.position = this.section.lines.size() + 1L;
 	}
 
+    public <T extends JPABase> T delete() {
+    	T result = super.delete();
+    	this.section.recomputeLinesPositions();
+    	return result;
+    }
+	
+
 	public Detail getDetailByProfile(Profile profile) {
-		for (Detail detail : details) {
-			if (detail.profile.equals(profile)) {
-				return detail;
+		if (details != null) {
+			for (Detail detail : details) {
+				if (detail.profile.equals(profile)) {
+					return detail;
+				}
 			}
 		}
 		return null;
 	}
 	
 	public Double getAmountByProfile(Profile profile) {
-		for (Detail detail : details) {
-			if (detail.profile.equals(profile)) {
-				return detail.amount;
+		if (details != null) {
+			for (Detail detail : details) {
+				if (detail.profile.equals(profile)) {
+					return detail.amount;
+				}
 			}
 		}
 		return 0D;

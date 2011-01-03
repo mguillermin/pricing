@@ -51,6 +51,12 @@ public class Pricings extends Controller {
     	renderTemplate("Pricings/show.html", pricing, revision, revisions, editable);
     }
 
+    public static void showHistory(Long id) {
+    	Pricing pricing = Pricing.findById(id);
+    	Map<Number, VersionInfo> revisions = getPricingRevisions(id);
+    	render(pricing, revisions);
+    }
+    
     /**
      * Action deleting a section
      * @param id Section Id to delete
@@ -203,7 +209,8 @@ public class Pricings extends Controller {
     	Section section = new Section(pricing, "Section " + String.valueOf(pricing.sections.size() + 1L));
     	section.save();
     	updatePricing(pricing);
-    	show(pricingId);
+    	boolean editable = true;
+    	render(section, pricing, editable);
     }
     
     /**
@@ -212,10 +219,12 @@ public class Pricings extends Controller {
      */
     public static void addLine(Long sectionId) {
     	Section section = Section.findById(sectionId);
+    	Pricing pricing = section.pricing;
     	Line line = new Line(section, "Line " + String.valueOf(section.lines.size() +1L));
     	line.save();
-    	updatePricing(section.pricing);
-    	show(section.pricing.id);
+    	updatePricing(pricing);
+    	boolean editable = true;
+    	render(line, pricing, editable);
     }
     
     /**

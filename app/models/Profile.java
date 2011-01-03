@@ -37,6 +37,12 @@ public class Profile extends Model {
 		this.position = this.pricing.profiles.size() + 1L;
 	}
 
+    public <T extends JPABase> T delete() {
+    	T result = super.delete();
+    	this.pricing.recomputeProfilesPositions();
+    	return result;
+    }
+    	
 	public void up() {
 		Profile previousProfile = pricing.getProfileByPosition(position - 1);
 		if (previousProfile != null) {

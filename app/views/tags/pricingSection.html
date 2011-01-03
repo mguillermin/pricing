@@ -1,0 +1,17 @@
+*{ Tag used to display a <tr> representing a section }*
+<tr class="section">
+  <td><span id="section-${_section.id}" class="section-title">${_section.title}</span> 
+    #{if _editable}
+      <ul class="actions">
+        <li><a href="@{Pricings.addLine(_section.id)}" class="insert line-add" title="Insert a line"></a></li>
+        <li><a href="@{Pricings.deleteSection(_section.id)}" class="delete section-delete" title="Delete this section"></a></li>
+        <li><a href="@{Pricings.sectionUp(_section.id)}" class="up section-up" title="Up"></a></li>
+        <li><a href="@{Pricings.sectionDown(_section.id)}" class="down section-down" title="Down"></a></li>
+      </ul>
+    #{/if}
+  </td>
+  #{list items:_pricing.profiles, as:'profile'}
+    <td class="profile">${_section.getAmountByProfile(profile).format('#.##')}</td>
+  #{/list}
+  <td class="total">${_section.getPrice().format('# ###.##')} &euro;</td>
+</tr>

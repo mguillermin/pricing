@@ -50,6 +50,30 @@ public class Pricing extends Model {
 		updatedAt = new Date();
 	}
 	
+	/**
+	 * Recompute the sections positions starting from 1 and without missing values
+	 */
+	public void recomputeSectionsPositions() {
+		Long position = 1L;
+		for (Section section : sections) {
+			section.position = position;
+			section.save();
+			position++;
+		}
+	}
+	
+	/**
+	 * Recompute the profiles positions starting from 1 and without missing values
+	 */
+	public void recomputeProfilesPositions() {
+		Long position = 1L;
+		for (Profile profile : profiles) {
+			profile.position = position;
+			profile.save();
+			position++;
+		}
+	}
+	
 	public static Pricing findByCode(String code) {
 		Pricing chiffrage = Pricing.find("byCode", code).first();
 		return chiffrage;

@@ -41,6 +41,26 @@ public class Section extends Model {
 		this.position = this.pricing.sections.size() + 1L;
 	}
 	
+    public <T extends JPABase> T delete() {
+    	T result = super.delete();
+    	this.pricing.recomputeSectionsPositions();
+    	return result;
+    }
+    
+	/**
+	 * Recompute the lines positions starting from 1 and without missing values
+	 */
+	public void recomputeLinesPositions() {
+		Long position = 1L;
+		for (Line line : lines) {
+			line.position = position;
+			line.save();
+			position++;
+		}
+	}
+	
+    
+	
 	public Line getLineByPosition(Long position) {
 		for (Line line : lines) {
 			if (line.position.equals(position)) {
@@ -87,8 +107,10 @@ public class Section extends Model {
 
 	public Double getAmountByProfile(Profile profile) {
 		Double amount = 0D;
-		for (Line line : lines) {
-			amount += line.getAmountByProfile(profile);
+		if (lines != null) {
+			for (Line line : lines) {
+				amount += line.getAmountByProfile(profile);
+			}
 		}
 		return amount;
 	}

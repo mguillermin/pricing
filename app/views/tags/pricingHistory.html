@@ -1,0 +1,13 @@
+<h3>&{'pricing.versions.list'}</h3>
+*{ If we are displaying a previous revision, we add a link to return to the last version }*
+#{if _revision}
+  <a href="@{Pricings.show(_pricing.id)}">&{'pricing.version.show.current'}</a>
+#{/if}
+<ul>
+
+*{ We do not display the "revision" value but successive numbers for one pricing }*
+#{set nbRevisions: _revisions.keySet().size() /}
+#{list items:_revisions.keySet(), as:'version'}
+  <li><a href="@{Pricings.showRevision(_pricing.id, version)}">&{'pricing.version.show'} ${nbRevisions--} - &{'pricing.version.updatedAt'} ${_revisions.get(version).updatedAt.format('dd/MM/yyyy hh:mm:ss')} &{'pricing.version.updatedBy'} ${_revisions.get(version).updatedBy}</a></li>
+#{/list}
+</ul>
