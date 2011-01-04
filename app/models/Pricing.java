@@ -27,7 +27,7 @@ public class Pricing extends Model {
 	
 	public Date updatedAt;
 	
-	public String updateBy;
+	public String updatedBy;
 	
 	@OneToMany (mappedBy="pricing", cascade = CascadeType.ALL)
 	@OrderBy ("position")
@@ -42,7 +42,7 @@ public class Pricing extends Model {
 	 */
 	public void update(Date date, String username) {
 		updatedAt = date;
-		updateBy = username;
+		updatedBy = username;
 		save();
 	}
 	

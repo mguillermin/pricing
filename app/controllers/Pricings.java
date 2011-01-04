@@ -31,15 +31,16 @@ import utils.VersionInfo;
 @With(Secure.class)
 public class Pricings extends Controller {
 
+	public static void show(Long id) {
+		show(id, true);
+	}
 	/**
 	 * Action displaying the pricing
 	 * @param id Pricing Id
 	 */
-    public static void show(Long id) {
+    public static void show(Long id, boolean editable) {
     	Pricing pricing = Pricing.findById(id);
-
     	Map<Number, VersionInfo> revisions = getPricingRevisions(id);
-    	boolean editable = true;
     	render(pricing, revisions, editable);
     }
 
@@ -416,7 +417,7 @@ public class Pricings extends Controller {
     		Pricing pricing = ar.find(Pricing.class, id, revisionNumber);
     		VersionInfo versionInfo = new VersionInfo();
     		versionInfo.version = revisionNumber;
-    		versionInfo.updatedBy = pricing.updateBy;
+    		versionInfo.updatedBy = pricing.updatedBy;
     		versionInfo.updatedAt = pricing.updatedAt;
     		revisions.put(revisionNumber, versionInfo);
 		}

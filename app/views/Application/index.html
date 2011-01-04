@@ -3,11 +3,31 @@
 <h1>&{'pricings.list'}</h1>
 #{if pricings && pricings.size() > 1}
   <h3>&{'pricings.last.updated'}</h3>
-  <ul class="pricing-list">
-  #{list items:pricings, as:'pricing'}
-  	<li><a href="@{Pricings.show(pricing.id)}">${pricing.code} - ${pricing.title}</a> <i>[&{'pricing.modified'} ${pricing.updatedAt.since()}]</i></li>
-  #{/list}
-  </ul>
+  <table class="pricing-list">
+    <thead>
+      <tr>
+        <th>&{'pricing.code'}</th>
+        <th>&{'pricing.title'}</th>
+        <th>&{'pricing.modified.at'}</th>
+        <th>&{'pricing.modified.by'}</th>
+        <th>&{'pricing.actions'}</th>
+      </tr>
+    </thead>
+    <tbody>
+      #{list items:pricings, as:'pricing'}
+        <tr class="${pricing_index % 2 ? 'even' : 'odd'}">
+          <td>${pricing.code}</td>
+          <td>${pricing.title}</td>
+          <td>${pricing.updatedAt.since()}</td>
+          <td>${pricing.updatedBy}</td>
+          <td>
+            <a href="@{Pricings.show(pricing.id, false)}" class="show">&{'pricing.show'}</a>
+            <a href="@{Pricings.show(pricing.id, true)}" class="edit">&{'pricing.edit'}</a>
+          </td>
+        </tr>
+      #{/list}
+    </tbody>
+  </table>
 #{/if}
 #{else}
     <div class="empty">

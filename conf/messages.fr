@@ -9,7 +9,13 @@ pricings.last.updated=Derniers chiffrages mis à jour :
 
 
 pricing.add=Créer un chiffrage
-pricing.modified=modifié
+pricing.show=Afficher
+pricing.edit=Editer
+pricing.code=Code
+pricing.title=Titre
+pricing.modified.at=Modifié
+pricing.modified.by=Par
+pricing.actions=Actions
 pricing.col.title=Intitulé
 pricing.col.total=Total
 pricing.section.add=Ajouter une section
