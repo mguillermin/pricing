@@ -14,8 +14,9 @@
         #{get 'moreScripts' /}
     </head>
     <body>
+      &{'user.welcome', controllers.Security.connected()}
       <a href="@{Application.index}">&{'home'}</a>
-      <a href="@{Secure.logout}">&{'logout'}</a>
+      <a href="@{Secure.logout}">&{'user.logout'}</a>
         #{doLayout /}
     </body>
 </html>

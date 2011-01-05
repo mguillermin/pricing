@@ -12,6 +12,10 @@ public class User extends Model {
 	
 	public String password;
 	
+	public Boolean importedFromLdap;
+	
+	public Boolean isAdmin;
+	
 	public String toString() {
 		return username;
 	}
