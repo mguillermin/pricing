@@ -78,12 +78,11 @@ public class PricingExporter {
 			int col = 2;
 			for (Profile profile : pricing.profiles) {
 				sheet.getCellAt(col, rowIndex).setValue(section.getPriceByProfile(profile));
-				sheet.getCellAt(col, rowIndex).setStyleName("SectionPrice");
+				sheet.getCellAt(col, rowIndex).setStyleName("Section");
 				col++;
 			}
 			sheet.getCellAt(col, rowIndex).setValue(section.getPrice());
-			sheet.getCellAt(col, rowIndex).setStyleName("SectionPrice");
-			//sheet.getCellAt(col, rowIndex).setStyleName("Price");
+			sheet.getCellAt(col, rowIndex).setStyleName("Section");
 			rowIndex++;
 			for (Line line : section.lines) {
 				sheet.getCellAt(1, rowIndex).setValue(line.title);
@@ -100,11 +99,15 @@ public class PricingExporter {
 	
 	protected void generateTotal(Pricing pricing, Sheet sheet) {
 		sheet.getCellAt(0, rowIndex).setValue("Total");
+		sheet.getCellAt(0, rowIndex).merge(2, 1);
+		sheet.getCellAt(0, rowIndex).setStyleName("Total");
 		int col = 2;
 		for (Profile profile : pricing.profiles) {
 			sheet.getCellAt(col, rowIndex).setValue(pricing.getAmountByProfile(profile));
+			sheet.getCellAt(col, rowIndex).setStyleName("Total");
 			col++;
 		}
 		sheet.getCellAt(col, rowIndex).setValue(pricing.getPrice());
+		sheet.getCellAt(col, rowIndex).setStyleName("Total");
 	}
 }

@@ -23,6 +23,7 @@ pricing.col.total=Total
 pricing.section.add=Ajouter une section
 pricing.profile.add=Ajouter un profil
 pricing.edit.controls.toggle=Afficher/Masquer les contrôles d'édition
+pricing.export=Exporter en .ods
 
 pricing.versions.list=Versions
 pricing.version.show.current=Afficher la version courante
