@@ -57,6 +57,7 @@
   <a href="javascript:void(0)" class="edit" id="toggle-edition">&{'pricing.edit.controls.toggle'}</a>
 #{/if}
 
+<a href="@{Pricings.export(pricing.id)}">&{'pricing.export'}</a>
 <div id="pricing-history">
   #{pricingHistory pricing:pricing, revisions:revisions, revision:revision /}
 </div>

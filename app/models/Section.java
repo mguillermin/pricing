@@ -131,8 +131,10 @@ public class Section extends Model {
 	
 	public Double getPriceByProfile(Profile profile) {
 		Double price = 0D;
-		for(Line line : lines) {
-			price += line.getPriceByProfile(profile);
+		if (lines != null) {
+			for(Line line : lines) {
+				price += line.getPriceByProfile(profile);
+			}
 		}
 		return price;
 	}

@@ -87,7 +87,7 @@ public class Line extends Model {
 				return detail.amount * profile.rate;
 			}
 		}
-		return null;
+		return 0D;
 	}
 
 	/**

@@ -1,5 +1,8 @@
 package controllers;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.Collection;
 import java.util.Collections;
@@ -8,6 +11,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 import models.Detail;
 import models.Line;
@@ -18,6 +24,7 @@ import models.Section;
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.envers.AuditReader;
 import org.hibernate.envers.AuditReaderFactory;
+import org.jopendocument.dom.spreadsheet.SpreadSheet;
 
 import com.sun.tools.javac.resources.version;
 
@@ -26,6 +33,7 @@ import play.data.validation.Required;
 import play.db.jpa.JPA;
 import play.mvc.Controller;
 import play.mvc.With;
+import utils.PricingExporter;
 import utils.VersionInfo;
 
 @With(Secure.class)
@@ -52,6 +60,11 @@ public class Pricings extends Controller {
     	renderTemplate("Pricings/show.html", pricing, revision, revisions, editable);
     }
 
+	public static void export(Long id) {
+		PricingExporter exporter = new PricingExporter();
+		renderBinary(exporter.export(id));
+	}
+    
     public static void showHistory(Long id) {
     	Pricing pricing = Pricing.findById(id);
     	Map<Number, VersionInfo> revisions = getPricingRevisions(id);
