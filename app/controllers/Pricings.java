@@ -211,7 +211,7 @@ public class Pricings extends Controller {
     	profile.rate = 0D;
     	profile.save();
     	updatePricing(pricing);
-    	show(pricingId);
+    	show(pricingId, true);
     }
     
     /**

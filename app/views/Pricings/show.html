@@ -65,7 +65,7 @@
 #{if editable}
   <script type="text/javascript">
     var refreshPricing = function() {
-      $("body").load('@{Pricings.show(pricing.id)}');
+      $("body").load('@{Pricings.show(pricing.id, editable)}');
     }
     var refreshHistory = function() {
       $("#pricing-history").load('@{Pricings.showHistory(pricing.id)}');

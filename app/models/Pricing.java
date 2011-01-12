@@ -10,8 +10,6 @@ import javax.persistence.OrderBy;
 
 import org.hibernate.envers.Audited;
 
-import controllers.Security;
-
 import play.data.validation.Required;
 import play.db.jpa.Model;
 
