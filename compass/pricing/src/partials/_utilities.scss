@@ -1,0 +1,16 @@
+// Espace supplémentaire ajouté au pictogramme
+$picto-spacing: 5px !default;
+
+/**
+ * Afficher une image en remplacement d'un texte.
+ *
+ * Le nom de ce mixin vient du fait que son principal usage de ce mixin
+ * est l'affichage d'un logotype,
+ *
+ * @param string  $name Nom de l'image au format PNG.
+ * @param boolean $hover Inclure un effet de survol ? Defaut : false.
+ */
+@mixin picto-image($name, $hover: false) {
+  background: sprite-image('#{$sprites-dir}/#{$name}') no-repeat;
+  padding-left: image-width('#{$sprites-dir}/#{$name}') + $picto-spacing;
+}

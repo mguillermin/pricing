@@ -5,6 +5,8 @@ home=Accueil
 user.logout=Se déconnecter
 user.welcome=Bienvenue %s
 
+footer.message=Pricing App is powered by <a href="%s">Play!</a> - Source code is available on <a href="%s">Github</a>
+
 pricings.list=Chiffrages
 pricings.list.empty=Il n'y a pas de chiffrages enregistrés pour l'instant
 pricings.last.updated=Derniers chiffrages mis à jour :

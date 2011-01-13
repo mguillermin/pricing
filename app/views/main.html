@@ -1,10 +1,20 @@
+#{if sidebar}
+  #{set bodyClass: "two-col" /}
+#{/if}
+#{else}
+  #{set bodyClass: "full" /}
+#{/else}
 <!DOCTYPE html>
 
 <html>
     <head>
         <title>#{get 'title' /}</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <link rel="stylesheet" type="text/css" media="screen" href="@{'/public/stylesheets/main.css'}">
+        <link href="/public/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
+        <link href="/public/stylesheets/print.css" media="print" rel="stylesheet" type="text/css" />
+        <!--[if IE]>
+            <link href="/public/stylesheets/ie.css" media="screen, projection" rel="stylesheet" type="text/css" />
+        <![endif]-->
         #{get 'moreStyles' /}
         <link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}">
         <script src="@{'/public/javascripts/jquery-1.4.4.min.js'}" type="text/javascript" charset="utf-8"></script>
@@ -13,10 +23,26 @@
         <script src="@{'/public/javascripts/pricing.js'}" type="text/javascript" charset="utf-8"></script>
         #{get 'moreScripts' /}
     </head>
-    <body>
-      &{'user.welcome', controllers.Security.connected()}
-      <a href="@{Application.index}">&{'home'}</a>
-      <a href="@{Secure.logout}">&{'user.logout'}</a>
-        #{doLayout /}
+    <body class="bp ${bodyClass}">
+      <div id="container">
+        <div id="header">
+          <a href="@{Application.index}">
+            <h1>Clever Pricing</h1>
+          </a>
+          <div class="welcome">
+            &{'user.welcome', controllers.Security.connected()}
+            <a href="@{Secure.logout}" class="logout">&{'user.logout'}</a>
+          </div>
+        </div>
+        <div id="content">
+          #{doLayout /}
+        </div>
+        <div id="sidebar">
+          #{get 'sidebar' /}
+        </div>
+        <div id="footer">
+          ~ &{'footer.message', 'http://www.playframework.org/', 'https://github.com/mguillermin/pricing'} ~
+        </div>
+      </div>
     </body>
 </html>
