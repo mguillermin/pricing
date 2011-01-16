@@ -9,26 +9,31 @@ Pricing(p1):
 # Profiles for Pricing 1 
 Profile(p1CP):
   title: CP
+  position: 1
   rate: 700
   pricing: p1
   
 Profile(p1DEV):
   title: DEV
+  position: 2
   rate: 500
   pricing: p1
 
 Profile(p1INT):
   title: INT
+  position: 3
   rate: 400
   pricing: p1
 
 # Pricing 1 - Section 1 
 Section(sc11):
   pricing: p1
+  position: 1
   title: Section 1-1
 
 Line(l111):
   title: Line 1-1-1
+  position: 1
   section: sc11
 
 Detail(dt111CP):
@@ -43,6 +48,7 @@ Detail(dt111DEV):
   
 Line(l112):
   title: Line 1-1-2
+  position: 2
   section: sc11
   
 Detail(dt112DEV):
@@ -58,10 +64,12 @@ Detail(dt112INT):
 # Pricing 1 - Section 2
 Section(sc12):
   pricing: p1
+  position: 2
   title: Section 1-2
 
 Line(l121):
   title: Line 1-2-1
+  position: 1
   section: sc12
 
 Detail(dt121CP):
@@ -78,5 +86,3 @@ Detail(dt121INT):
 Pricing(p2):
   title: Pricing 2
   code: P2
-
- 
