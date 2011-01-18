@@ -129,4 +129,80 @@ a {
   &.add {
     @include picto-image('add.png');
   }
+  &.insert {
+    @include picto-image('table_row_insert.png');
+  }
+  &.delete {
+    @include picto-image('delete.png');
+  }
+  &.up {
+    @include picto-image('arrow_up.png');
+  }
+  &.down {
+    @include picto-image('arrow_down.png');
+  }
+  &.left {
+    @include picto-image('arrow_left.png');
+  }
+  &.right {
+    @include picto-image('arrow_right.png');
+  }
+}
+
+
+table.pricing {
+  border: thin solid black;
+  border-collapse: collapse;
+  margin-bottom: 10px;
+  tr td, tr th {
+    border: thin solid black;
+    padding: 5px;
+  }
+  tr.section {
+    background: $ca-blue-bg-color;
+    color: white;
+  }
+
+  tr.total,  tr.total a {
+    background: $ca-blue-bg-color;
+    color: white;
+    font-size:larger;
+    font-weight: bold;
+  }
+
+  tr {
+    th.title {
+      width: 500px;
+    }
+    th.profile {
+      width: 70px;
+      text-align: center;
+    }
+    td.profile, td.total, th.rate {
+      text-align: right;
+    }
+    th.total {
+      width: 130px;
+    }
+  }
+  ul.actions {
+    float:right;
+    margin: 0;
+    padding: 0;
+    li{
+      display:inline;
+      float: left;
+    }
+  }
+}
+
+/**
+ * Edit in-place
+**/
+form.editable {
+  display: inline;
+  input {
+    font-size:inherit;
+    font-family: inherit;
+  }
 }
