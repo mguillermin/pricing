@@ -35,6 +35,10 @@ public class Pricing extends Model {
 	@OrderBy ("position")
 	public List<Profile> profiles;
 	
+	@OneToMany (mappedBy="pricing", cascade = CascadeType.ALL)
+	@OrderBy ("revision")
+	public List<PricingTag> pricingTags;
+	
 	/**
 	 * Used by other entities to notify pricing of a modification
 	 */
