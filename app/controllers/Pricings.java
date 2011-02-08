@@ -18,6 +18,7 @@ import javax.swing.table.TableModel;
 import models.Detail;
 import models.Line;
 import models.Pricing;
+import models.PricingTag;
 import models.Profile;
 import models.Section;
 
@@ -39,7 +40,7 @@ import utils.VersionInfo;
 @With(Secure.class)
 public class Pricings extends Controller {
 
-	public static void show(Long id) {
+	public static void edit(Long id) {
 		show(id, true);
 	}
 	/**
@@ -60,6 +61,13 @@ public class Pricings extends Controller {
     	renderTemplate("Pricings/show.html", pricing, revision, revisions, editable);
     }
 
+    public static void showPricingTag(Long id, Long pricingTagId) {
+    	PricingTag pricingTag = PricingTag.findById(pricingTagId);
+    	Pricing pricing = pricingTag.getHistorizedPricing();
+    	boolean editable = false;
+    	renderTemplate("Pricings/show.html", pricing, pricingTag, editable);
+    }
+    
 	public static void export(Long id) {
 		PricingExporter exporter = new PricingExporter();
 		renderBinary(exporter.export(id));
@@ -80,7 +88,7 @@ public class Pricings extends Controller {
     	Pricing pricing = section.pricing;
     	section.delete();
     	updatePricing(pricing);
-    	show(pricing.id);
+    	edit(pricing.id);
     }
 
     /**
@@ -92,7 +100,7 @@ public class Pricings extends Controller {
     	Pricing pricing = line.section.pricing;
     	line.delete();
     	updatePricing(pricing);
-    	show(pricing.id);
+    	edit(pricing.id);
     }
     
     /**
@@ -142,7 +150,7 @@ public class Pricings extends Controller {
     	Section section = Section.findById(sectionId);
     	section.up();
     	updatePricing(section.pricing);
-    	show(section.pricing.id);
+    	edit(section.pricing.id);
     }
 
     /**
@@ -153,7 +161,7 @@ public class Pricings extends Controller {
     	Section section = Section.findById(sectionId);
     	section.down();
     	updatePricing(section.pricing);
-    	show(section.pricing.id);
+    	edit(section.pricing.id);
     }
 
     /**
@@ -164,7 +172,7 @@ public class Pricings extends Controller {
     	Line line = Line.findById(lineId);
     	line.up();
     	updatePricing(line.section.pricing);
-    	show(line.section.pricing.id);
+    	edit(line.section.pricing.id);
     }
 
     /**
@@ -175,7 +183,7 @@ public class Pricings extends Controller {
     	Line line = Line.findById(lineId);
     	line.down();
     	updatePricing(line.section.pricing);
-    	show(line.section.pricing.id);
+    	edit(line.section.pricing.id);
     }
     
     /**
@@ -186,7 +194,7 @@ public class Pricings extends Controller {
     	Profile profile = Profile.findById(profileId);
     	profile.up();
     	updatePricing(profile.pricing);
-    	show(profile.pricing.id);
+    	edit(profile.pricing.id);
     }
 
     /**
@@ -197,7 +205,7 @@ public class Pricings extends Controller {
     	Profile profile = Profile.findById(profileId);
     	profile.down();
     	updatePricing(profile.pricing);
-    	show(profile.pricing.id);
+    	edit(profile.pricing.id);
     }
     
     /**
@@ -250,7 +258,7 @@ public class Pricings extends Controller {
     	Pricing pricing = profile.pricing;
     	profile.delete();
     	updatePricing(pricing);
-    	show(pricing.id);
+    	edit(pricing.id);
     }
     
     /**

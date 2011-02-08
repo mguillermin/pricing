@@ -1,0 +1,6 @@
+<h4>Créer un tag</h4>
+<form action="@{PricingTags.create(_pricing.id)}">
+  <input type='hidden' name="pricingId" value="${_pricing.id}" />
+  <label for="title">Nom : </label><input type="text" name="title" value="" />
+  <input type="submit" value="Créer" />
+</form>

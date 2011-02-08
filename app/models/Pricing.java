@@ -8,9 +8,14 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 
+import org.hibernate.envers.AuditReader;
+import org.hibernate.envers.AuditReaderFactory;
 import org.hibernate.envers.Audited;
+import org.hibernate.envers.NotAudited;
+import org.hibernate.envers.query.AuditEntity;
 
 import play.data.validation.Required;
+import play.db.jpa.JPA;
 import play.db.jpa.Model;
 
 @Entity
@@ -37,6 +42,7 @@ public class Pricing extends Model {
 	
 	@OneToMany (mappedBy="pricing", cascade = CascadeType.ALL)
 	@OrderBy ("revision")
+	@NotAudited
 	public List<PricingTag> pricingTags;
 	
 	/**
@@ -139,5 +145,14 @@ public class Pricing extends Model {
 			}
 		}
 		return null;
+	}
+	
+	public Number getCurrentRevisionNumber() {
+		AuditReader ar = AuditReaderFactory.get(em());
+		Number revision = (Number) ar.createQuery().forRevisionsOfEntity(Pricing.class, false, true)
+			.addProjection(AuditEntity.revisionNumber().max())
+			.add(AuditEntity.id().eq(id))
+			.getSingleResult();
+		return revision;
 	}
 }

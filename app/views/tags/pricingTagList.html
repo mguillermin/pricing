@@ -1,0 +1,15 @@
+<h3>&{'pricing.pricingTags.list'}</h3>
+*{ If we are displaying a previous tag, we add a link to return to the last version }*
+#{if _tag}
+  <a href="@{Pricings.show(_pricing.id)}">&{'pricing.version.show.current'}</a>
+#{/if}
+#{if _pricing.pricingTags}
+  <ul>
+  #{list items:_pricing.pricingTags, as:'pricingTag'}
+    <li><a href="@{Pricings.showPricingTag(_pricing.id, pricingTag.id)}">${pricingTag.title}</a> - &{'pricing.pricingTag.createdAt'} ${pricingTag.createdAt.format('dd/MM/yyyy hh:mm:ss')} &{'pricing.pricingTag.updatedBy'} ${pricingTag.updatedBy}&nbsp;<a class="delete" href="@{PricingTags.delete(pricingTag.id)}">Delete</a></li>
+  #{/list}
+  </ul>
+#{/if}
+#{else}
+  <p>&{'pricing.pricingTag.empty'}</p>
+#{/else}

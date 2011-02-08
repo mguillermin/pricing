@@ -196,6 +196,22 @@ table.pricing {
   }
 }
 
+ul.pricing-actions {
+  padding-left: 10px;
+  li {
+    display: inline;
+  }
+}
+
+.tag-info {
+  background-color: $warning-color;
+  border: thin solid $warning-border-color;
+  color: #FFF;
+  font-style: italic;
+  font-size: larger;
+  padding: 0 5px;
+}
+
 /**
  * Edit in-place
 **/

@@ -1,5 +1,7 @@
 package models;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
@@ -12,16 +14,22 @@ import play.db.jpa.Model;
 public class PricingTag extends Model {
 
 	@ManyToOne
-	private Pricing pricing;
+	public Pricing pricing;
 	
-	private Number revision;
+	public Integer revision;
 	
-	private String title;
+	public String title;
+	
+	public Date createdAt;
+	
+	public String updatedBy;
 	
 	public PricingTag(Pricing pricing, Number revision, String title) {
 		this.pricing = pricing;
-		this.revision = revision;
+		this.revision = revision.intValue();
 		this.title = title;
+		this.createdAt = new Date();
+		this.updatedBy = this.pricing.updatedBy;
 	}
 	
 	public Pricing getHistorizedPricing() {

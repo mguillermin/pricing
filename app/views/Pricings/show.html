@@ -5,6 +5,10 @@
 
 <h2><span id="pricing-code-${pricing.id}" class="pricing-code">${pricing.code}</span> - <span id="pricing-title-${pricing.id}" class="pricing-title">${pricing.title}</span></h2>
 
+#{if pricingTag}
+  <p class="tag-info">${pricingTag.title}</a> - &{'pricing.pricingTag.createdAt'} ${pricingTag.createdAt.format('dd/MM/yyyy hh:mm:ss')} &{'pricing.pricingTag.updatedBy'} ${pricingTag.updatedBy}</p>
+#{/if}
+
 #{if flash.success}
 	<p class="success">${flash.success}</p>
 #{/if}
@@ -51,16 +55,21 @@
   </tr>
 </table>
 
-#{if editable}
-  <a href="@{Pricings.addSection(pricing.id)}" class="add" id="pricing-section-add">&{'pricing.section.add'}</a>
-  <a href="@{Pricings.addProfile(pricing.id)}" class="add">&{'pricing.profile.add'}</a>
-  <a href="javascript:void(0)" class="edit" id="toggle-edition">&{'pricing.edit.controls.toggle'}</a>
-#{/if}
+<ul class="pricing-actions">
+  #{if editable}
+    <li><a href="@{Pricings.addSection(pricing.id)}" class="add" id="pricing-section-add">&{'pricing.section.add'}</a></li>
+    <li><a href="@{Pricings.addProfile(pricing.id)}" class="add">&{'pricing.profile.add'}</a></li>
+    <li><a href="javascript:void(0)" class="edit" id="toggle-edition">&{'pricing.edit.controls.toggle'}</a></li>
+  #{/if}
+  
+  <li><a href="@{Pricings.export(pricing.id)}">&{'pricing.export'}</a></li>
+</ul>
 
-<a href="@{Pricings.export(pricing.id)}">&{'pricing.export'}</a>
-<div id="pricing-history">
-  #{pricingHistory pricing:pricing, revisions:revisions, revision:revision /}
-</div>
+#{pricingTagList pricing:pricing /}
+
+#{if editable}
+  #{pricingTagEdit pricing:pricing /}
+#{/if}
 
 #{if editable}
   <script type="text/javascript">

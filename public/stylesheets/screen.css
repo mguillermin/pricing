@@ -82,6 +82,11 @@ a img {
   border: none;
 }
 
+/* line 37, ../../compass/pricing/src/partials/_base.scss */
+.hidden {
+  display: none;
+}
+
 /**
  * Afficher une image en remplacement d'un texte.
  *
@@ -396,7 +401,7 @@ body .bottom {
 }
 /* line 8, ../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_debug.scss */
 body .showgrid {
-  background: url('../images/grid.png?1295354161');
+  background: url('../images/grid.png?1295355083');
 }
 /* line 4, ../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_interaction.scss */
 body .error {
@@ -621,7 +626,7 @@ body.two-col #content {
 /* line 84, ../../compass/pricing/src/screen.scss */
 #header h1 {
   color: #146fb1;
-  background: url('../images/sprites.png?1295354790') no-repeat;
+  background: url('../images/sprites.png?1297197551') no-repeat;
   padding-left: 148px;
   height: 44px;
   padding-top: 10px;
@@ -665,52 +670,52 @@ body table.pricing-list td {
 
 /* line 120, ../../compass/pricing/src/screen.scss */
 a.logout {
-  background: url('../images/sprites.png?1295354790') 0 -59px no-repeat;
+  background: url('../images/sprites.png?1297197551') 0 -59px no-repeat;
   padding-left: 21px;
 }
 /* line 123, ../../compass/pricing/src/screen.scss */
 a.show {
-  background: url('../images/sprites.png?1295354790') 0 -75px no-repeat;
+  background: url('../images/sprites.png?1297197551') 0 -75px no-repeat;
   padding-left: 21px;
 }
 /* line 126, ../../compass/pricing/src/screen.scss */
 a.edit {
-  background: url('../images/sprites.png?1295354790') 0 -91px no-repeat;
+  background: url('../images/sprites.png?1297197551') 0 -91px no-repeat;
   padding-left: 21px;
 }
 /* line 129, ../../compass/pricing/src/screen.scss */
 a.add {
-  background: url('../images/sprites.png?1295354790') 0 -107px no-repeat;
+  background: url('../images/sprites.png?1297197551') 0 -107px no-repeat;
   padding-left: 21px;
 }
 /* line 132, ../../compass/pricing/src/screen.scss */
 a.insert {
-  background: url('../images/sprites.png?1295354790') 0 -123px no-repeat;
+  background: url('../images/sprites.png?1297197551') 0 -123px no-repeat;
   padding-left: 21px;
 }
 /* line 135, ../../compass/pricing/src/screen.scss */
 a.delete {
-  background: url('../images/sprites.png?1295354790') 0 -139px no-repeat;
+  background: url('../images/sprites.png?1297197551') 0 -139px no-repeat;
   padding-left: 21px;
 }
 /* line 138, ../../compass/pricing/src/screen.scss */
 a.up {
-  background: url('../images/sprites.png?1295354790') 0 -155px no-repeat;
+  background: url('../images/sprites.png?1297197551') 0 -155px no-repeat;
   padding-left: 21px;
 }
 /* line 141, ../../compass/pricing/src/screen.scss */
 a.down {
-  background: url('../images/sprites.png?1295354790') 0 -171px no-repeat;
+  background: url('../images/sprites.png?1297197551') 0 -171px no-repeat;
   padding-left: 21px;
 }
 /* line 144, ../../compass/pricing/src/screen.scss */
 a.left {
-  background: url('../images/sprites.png?1295354790') 0 -187px no-repeat;
+  background: url('../images/sprites.png?1297197551') 0 -187px no-repeat;
   padding-left: 21px;
 }
 /* line 147, ../../compass/pricing/src/screen.scss */
 a.right {
-  background: url('../images/sprites.png?1295354790') 0 -203px no-repeat;
+  background: url('../images/sprites.png?1297197551') 0 -203px no-repeat;
   padding-left: 21px;
 }
 
@@ -766,14 +771,33 @@ table.pricing ul.actions li {
   float: left;
 }
 
+/* line 199, ../../compass/pricing/src/screen.scss */
+ul.pricing-actions {
+  padding-left: 10px;
+}
+/* line 201, ../../compass/pricing/src/screen.scss */
+ul.pricing-actions li {
+  display: inline;
+}
+
+/* line 206, ../../compass/pricing/src/screen.scss */
+.tag-info {
+  background-color: #ffcc77;
+  border: thin solid #ffaa44;
+  color: #FFF;
+  font-style: italic;
+  font-size: larger;
+  padding: 0 5px;
+}
+
 /**
  * Edit in-place
 **/
-/* line 202, ../../compass/pricing/src/screen.scss */
+/* line 218, ../../compass/pricing/src/screen.scss */
 form.editable {
   display: inline;
 }
-/* line 204, ../../compass/pricing/src/screen.scss */
+/* line 220, ../../compass/pricing/src/screen.scss */
 form.editable input {
   font-size: inherit;
   font-family: inherit;
