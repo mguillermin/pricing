@@ -82,6 +82,11 @@ a img {
   border: none;
 }
 
+/* line 38, ../../compass/pricing/src/partials/_base.scss */
+.hidden {
+  display: none;
+}
+
 /**
  * Afficher une image en remplacement d'un texte.
  *
@@ -621,7 +626,7 @@ body.two-col #content {
 /* line 84, ../../compass/pricing/src/screen.scss */
 #header h1 {
   color: #146fb1;
-  background: url('../images/sprites.png?1295355102') no-repeat;
+  background: url('../images/sprites.png?1297234521') no-repeat;
   padding-left: 148px;
   height: 44px;
   padding-top: 10px;
@@ -665,52 +670,52 @@ body table.pricing-list td {
 
 /* line 120, ../../compass/pricing/src/screen.scss */
 a.logout {
-  background: url('../images/sprites.png?1295355102') 0 -59px no-repeat;
+  background: url('../images/sprites.png?1297234521') 0 -59px no-repeat;
   padding-left: 21px;
 }
 /* line 123, ../../compass/pricing/src/screen.scss */
 a.show {
-  background: url('../images/sprites.png?1295355102') 0 -75px no-repeat;
+  background: url('../images/sprites.png?1297234521') 0 -75px no-repeat;
   padding-left: 21px;
 }
 /* line 126, ../../compass/pricing/src/screen.scss */
 a.edit {
-  background: url('../images/sprites.png?1295355102') 0 -91px no-repeat;
+  background: url('../images/sprites.png?1297234521') 0 -91px no-repeat;
   padding-left: 21px;
 }
 /* line 129, ../../compass/pricing/src/screen.scss */
 a.add {
-  background: url('../images/sprites.png?1295355102') 0 -107px no-repeat;
+  background: url('../images/sprites.png?1297234521') 0 -107px no-repeat;
   padding-left: 21px;
 }
 /* line 132, ../../compass/pricing/src/screen.scss */
 a.insert {
-  background: url('../images/sprites.png?1295355102') 0 -123px no-repeat;
+  background: url('../images/sprites.png?1297234521') 0 -123px no-repeat;
   padding-left: 21px;
 }
 /* line 135, ../../compass/pricing/src/screen.scss */
 a.delete {
-  background: url('../images/sprites.png?1295355102') 0 -139px no-repeat;
+  background: url('../images/sprites.png?1297234521') 0 -139px no-repeat;
   padding-left: 21px;
 }
 /* line 138, ../../compass/pricing/src/screen.scss */
 a.up {
-  background: url('../images/sprites.png?1295355102') 0 -155px no-repeat;
+  background: url('../images/sprites.png?1297234521') 0 -155px no-repeat;
   padding-left: 21px;
 }
 /* line 141, ../../compass/pricing/src/screen.scss */
 a.down {
-  background: url('../images/sprites.png?1295355102') 0 -171px no-repeat;
+  background: url('../images/sprites.png?1297234521') 0 -171px no-repeat;
   padding-left: 21px;
 }
 /* line 144, ../../compass/pricing/src/screen.scss */
 a.left {
-  background: url('../images/sprites.png?1295355102') 0 -187px no-repeat;
+  background: url('../images/sprites.png?1297234521') 0 -187px no-repeat;
   padding-left: 21px;
 }
 /* line 147, ../../compass/pricing/src/screen.scss */
 a.right {
-  background: url('../images/sprites.png?1295355102') 0 -203px no-repeat;
+  background: url('../images/sprites.png?1297234521') 0 -203px no-repeat;
   padding-left: 21px;
 }
 
@@ -723,7 +728,7 @@ table.pricing {
 /* line 157, ../../compass/pricing/src/screen.scss */
 table.pricing tr td, table.pricing tr th {
   border: thin solid black;
-  padding: 2px 5px 2px 5px;
+  padding: 5px;
 }
 /* line 161, ../../compass/pricing/src/screen.scss */
 table.pricing tr.section {
@@ -766,14 +771,34 @@ table.pricing ul.actions li {
   float: left;
 }
 
+/* line 199, ../../compass/pricing/src/screen.scss */
+ul.pricing-actions {
+  padding: 0;
+}
+/* line 201, ../../compass/pricing/src/screen.scss */
+ul.pricing-actions li {
+  display: inline;
+  margin: 0 10px;
+}
+
+/* line 207, ../../compass/pricing/src/screen.scss */
+.tag-info {
+  background-color: #ffeeaa;
+  border: thin solid #ffaa44;
+  color: #444444;
+  font-style: italic;
+  font-size: larger;
+  padding: 0 5px;
+}
+
 /**
  * Edit in-place
 **/
-/* line 202, ../../compass/pricing/src/screen.scss */
+/* line 219, ../../compass/pricing/src/screen.scss */
 form.editable {
   display: inline;
 }
-/* line 204, ../../compass/pricing/src/screen.scss */
+/* line 221, ../../compass/pricing/src/screen.scss */
 form.editable input {
   font-size: inherit;
   font-family: inherit;

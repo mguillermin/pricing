@@ -22,7 +22,7 @@
           <td>${pricing.updatedBy}</td>
           <td>
             <a href="@{Pricings.show(pricing.id, false)}" class="show">&{'pricing.show'}</a>
-            <a href="@{Pricings.show(pricing.id, true)}" class="edit">&{'pricing.edit'}</a>
+            <a href="@{Pricings.edit(pricing.id)}" class="edit">&{'pricing.edit'}</a>
           </td>
         </tr>
       #{/list}

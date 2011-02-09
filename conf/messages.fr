@@ -33,6 +33,13 @@ pricing.version.show=Afficher la version
 pricing.version.updatedAt=mise à jour le
 pricing.version.updatedBy=par
 
+pricing.pricingTags.list=Tags
+pricing.pricingTag.show.current=Retour à la version courante
+pricing.pricingTag.delete=Supprimer
+pricing.pricingTag.createdAt=créé le
+pricing.pricingTag.updatedBy=par
+pricing.pricingTag.empty=Aucun tag n'a été créé pour ce chiffrage
+
 # For use in JavaExtensions.since tag
 since.seconds = il y a %s seconde%s
 since.minutes = il y a %s minute%s

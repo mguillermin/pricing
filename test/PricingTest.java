@@ -158,5 +158,9 @@ public class PricingTest extends UnitTest {
     	assertEquals("CP", profiles.get(2).title);
     }
     
+    @Test
+    public void pricingTag() {
+    	
+    }
 
 }

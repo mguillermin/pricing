@@ -2,6 +2,10 @@ $(document).ready(function() {
 	$("#toggle-edition").live('click', function(){
 		$("ul.actions").toggle();
 	});
+	$("#pricingtag-edit h4").live('click', function(){
+		$(this).parent().children('form').slideToggle();
+	}).css('cursor', 'pointer');
+	$("#pricingtag-edit form").hide();
 });
 
 // Section inserting

@@ -15,7 +15,13 @@ GET     /                                       Application.index
 GET     /pricing/{<[0-9]+>id}             		Pricings.show
 
 # Show Pricing at revision
-GET     /pricing/{<[0-9]+>id}/{<[0-9]+>revision}  Pricings.showRevision
+GET     /pricing/{<[0-9]+>id}/revision/{<[0-9]+>revision}  Pricings.showRevision
+
+# Show Pricing at tag
+GET     /pricing/{<[0-9]+>id}/tag/{<[0-9]+>pricingTagId}  Pricings.showPricingTag
+
+# Edit Pricing
+GET     /pricing/edit/{<[0-9]+>id}                   Pricings.edit
 
 # Map static resources from the /app/public folder to the /public path
 GET     /public/                                staticDir:public
