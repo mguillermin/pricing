@@ -1,6 +1,8 @@
 # Require any additional compass plugins here.
 require "lemonade"
 
+environment = :production
+output_style = :compact
 # Set this to the root of your project when deployed:
 http_path = "http://localhost:9000/public/"
 css_dir = "../../public/stylesheets"
