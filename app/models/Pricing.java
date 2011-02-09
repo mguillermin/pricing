@@ -155,4 +155,8 @@ public class Pricing extends Model {
 			.getSingleResult();
 		return revision;
 	}
+	
+	public Pricing getCurrentVersion() {
+		return Pricing.findById(id);
+	}
 }

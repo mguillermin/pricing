@@ -18,7 +18,7 @@ GET     /pricing/{<[0-9]+>id}             		Pricings.show
 GET     /pricing/{<[0-9]+>id}/revision/{<[0-9]+>revision}  Pricings.showRevision
 
 # Show Pricing at tag
-GET     /pricing/{<[0-9]+>id}/tag/{<[0-9]+>revision}  Pricings.showPricingTag
+GET     /pricing/{<[0-9]+>id}/tag/{<[0-9]+>pricingTagId}  Pricings.showPricingTag
 
 # Edit Pricing
 GET     /pricing/edit/{<[0-9]+>id}                   Pricings.edit

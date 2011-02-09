@@ -197,16 +197,17 @@ table.pricing {
 }
 
 ul.pricing-actions {
-  padding-left: 10px;
+  padding: 0;
   li {
     display: inline;
+    margin: 0 10px;
   }
 }
 
 .tag-info {
-  background-color: $warning-color;
+  background-color: $warning-bg-color;
   border: thin solid $warning-border-color;
-  color: #FFF;
+  color: $warning-color;
   font-style: italic;
   font-size: larger;
   padding: 0 5px;

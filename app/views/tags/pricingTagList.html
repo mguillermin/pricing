@@ -6,7 +6,7 @@
 #{if _pricing.pricingTags}
   <ul>
   #{list items:_pricing.pricingTags, as:'pricingTag'}
-    <li><a href="@{Pricings.showPricingTag(_pricing.id, pricingTag.id)}">${pricingTag.title}</a> - &{'pricing.pricingTag.createdAt'} ${pricingTag.createdAt.format('dd/MM/yyyy hh:mm:ss')} &{'pricing.pricingTag.updatedBy'} ${pricingTag.updatedBy}&nbsp;<a class="delete" href="@{PricingTags.delete(pricingTag.id)}">Delete</a></li>
+    <li><a href="@{Pricings.showPricingTag(_pricing.id, pricingTag.id)}">${pricingTag.title}</a> - &{'pricing.pricingTag.createdAt'} ${pricingTag.createdAt.format('dd/MM/yyyy hh:mm:ss')} &{'pricing.pricingTag.updatedBy'} ${pricingTag.updatedBy}&nbsp;#{if _editable}<a class="delete" href="@{PricingTags.delete(pricingTag.id)}">&{'pricing.pricingTag.delete'}</a>#{/if}</li>
   #{/list}
   </ul>
 #{/if}

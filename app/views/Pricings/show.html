@@ -6,7 +6,10 @@
 <h2><span id="pricing-code-${pricing.id}" class="pricing-code">${pricing.code}</span> - <span id="pricing-title-${pricing.id}" class="pricing-title">${pricing.title}</span></h2>
 
 #{if pricingTag}
-  <p class="tag-info">${pricingTag.title}</a> - &{'pricing.pricingTag.createdAt'} ${pricingTag.createdAt.format('dd/MM/yyyy hh:mm:ss')} &{'pricing.pricingTag.updatedBy'} ${pricingTag.updatedBy}</p>
+  <p class="tag-info">
+    ${pricingTag.title} - &{'pricing.pricingTag.createdAt'} ${pricingTag.createdAt.format('dd/MM/yyyy hh:mm:ss')} &{'pricing.pricingTag.updatedBy'} ${pricingTag.updatedBy}
+    - <a href="@{Pricings.show(pricing.id)}">&{'pricing.pricingTag.show.current'}</a>
+  </p>
 #{/if}
 
 #{if flash.success}
@@ -61,11 +64,13 @@
     <li><a href="@{Pricings.addProfile(pricing.id)}" class="add">&{'pricing.profile.add'}</a></li>
     <li><a href="javascript:void(0)" class="edit" id="toggle-edition">&{'pricing.edit.controls.toggle'}</a></li>
   #{/if}
-  
+  #{else}
+    <li><a href="@{Pricings.edit(pricing.id)}" class="edit">&{'pricing.edit'}</a></li>
+  #{/else}
   <li><a href="@{Pricings.export(pricing.id)}">&{'pricing.export'}</a></li>
 </ul>
 
-#{pricingTagList pricing:pricing /}
+#{pricingTagList pricing:pricing.getCurrentVersion(), editable:editable /}
 
 #{if editable}
   #{pricingTagEdit pricing:pricing /}
