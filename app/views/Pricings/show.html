@@ -111,3 +111,11 @@
     bindEditables();
   </script>
 #{/if}
+<script type="text/javascript">
+    var getJSON = function() {
+    	$.ajax({
+    			url: "@{Pricings.getPricingJSON(pricing.id)}",
+    			complete: function(data) { console.log(data); }
+    	});
+    };
+</script>

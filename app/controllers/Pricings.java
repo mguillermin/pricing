@@ -36,6 +36,8 @@ import play.mvc.Controller;
 import play.mvc.With;
 import utils.PricingExporter;
 import utils.VersionInfo;
+import utils.dto.PricingConverter;
+import utils.dto.PricingDTO;
 
 @With(Secure.class)
 public class Pricings extends Controller {
@@ -422,6 +424,12 @@ public class Pricings extends Controller {
         	renderText(profile.title);
     	}
     	renderText(value);
+    }
+    
+    public static void getPricingJSON(Long id) {
+    	Pricing pricing = Pricing.findById(id);
+    	PricingDTO pricingDto = PricingConverter.convertToDTO(pricing);
+    	renderJSON(pricingDto);
     }
 
     /**

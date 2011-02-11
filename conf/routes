@@ -23,6 +23,9 @@ GET     /pricing/{<[0-9]+>id}/tag/{<[0-9]+>pricingTagId}  Pricings.showPricingTa
 # Edit Pricing
 GET     /pricing/edit/{<[0-9]+>id}                   Pricings.edit
 
+# Render the pricing as a json object
+GET     /pricing/json/{<[0-9]+>id}                   Pricings.getPricingJSON
+
 # Map static resources from the /app/public folder to the /public path
 GET     /public/                                staticDir:public
 
