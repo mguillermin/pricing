@@ -52,7 +52,7 @@
   <tr class="total">
     <td>Total</td>
     #{list items:pricing.profiles, as:'profile'}
-      <td class="profile">${pricing.getAmountByProfile(profile).format('#.##')}</td>
+      <td id="profile-total-${profile.id}" class="profile">${pricing.getAmountByProfile(profile).format('#.##')}</td>
     #{/list}
     <td class="total">${pricing.getPrice().format('# ###.##')} &euro;</td>
   </tr>
@@ -112,10 +112,25 @@
   </script>
 #{/if}
 <script type="text/javascript">
+  var refreshPricing = function(pricing) {
+	  pricing.profiles.forEach(function(profile) {
+		  $("#profile-title-" + profile.id).html(profile.title);
+		  $("#profile-rate-" + profile.id).html(profile.rate);
+      $("#profile-total-" + profile.id).html(profile.amount);
+	  });
+	  pricing.sections.forEach(function(section)) {
+		  $("#section-" + section.id).html(section.title);
+		  section.lines.forEach(function(line)) {
+			  $("#line-" + line.id).html(line.title); 
+		  }
+	  }
+  }
     var getJSON = function() {
-    	$.ajax({
-    			url: "@{Pricings.getPricingJSON(pricing.id)}",
-    			complete: function(data) { console.log(data); }
-    	});
+    	$.getJSON(
+    			"@{Pricings.getPricingJSON(pricing.id)}", 
+    			function(data){
+    				  refreshPricing(data);
+    			}
+  			);
     };
 </script>

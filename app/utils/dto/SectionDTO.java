@@ -13,4 +13,6 @@ public class SectionDTO {
 	public Double price;
 
 	public List<LineDTO> lines;
+	
+	public List<DetailDTO> details;
 }

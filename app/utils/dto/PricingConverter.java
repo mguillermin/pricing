@@ -55,6 +55,15 @@ public class PricingConverter {
 			sectionDto.lines.add(convertLineToDTO(line));
 		}
 		
+		sectionDto.details = new ArrayList<DetailDTO>();
+		for (Profile profile : section.pricing.profiles) {
+			Double amount = section.getAmountByProfile(profile);
+			DetailDTO detailDto = new DetailDTO();
+			detailDto.amount = amount;
+			detailDto.profileId = profile.id;
+			sectionDto.details.add(detailDto);
+		}
+		
 		return sectionDto;
 	}
 	
