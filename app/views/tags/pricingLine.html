@@ -22,5 +22,5 @@
       <span id="detail-${_line.id}-${profile.id}" class="detail-amount">${amount}</span>
     </td>
   #{/list}
-  <td class="total">${_line.getPrice().format('# ###.##')} &euro;</td>
+  <td class="total"><span id="line-total-${_line.id}">${_line.getPrice().format('# ###.##')}</span> &euro;</td>
 </tr>

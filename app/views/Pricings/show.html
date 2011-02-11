@@ -52,9 +52,9 @@
   <tr class="total">
     <td>Total</td>
     #{list items:pricing.profiles, as:'profile'}
-      <td id="profile-total-${profile.id}" class="profile">${pricing.getAmountByProfile(profile).format('#.##')}</td>
+      <td class="profile"><span id="profile-total-${profile.id}">${pricing.getAmountByProfile(profile).format('#.##')}</span></td>
     #{/list}
-    <td class="total">${pricing.getPrice().format('# ###.##')} &euro;</td>
+    <td class="total"><span id="pricing-total">${pricing.getPrice().format('# ###.##')}</span> &euro;</td>
   </tr>
 </table>
 
@@ -112,25 +112,42 @@
   </script>
 #{/if}
 <script type="text/javascript">
-  var refreshPricing = function(pricing) {
+var getJSON = function() {
+	var pricingRefresh = function(pricing) {
+	  // Updating pricing
+	  $("#pricing-code").html(pricing.code);
+	  $("#pricing-title").html(pricing.title);
+	  $("#pricing-total").html(pricing.price);
+	  // Updating profiles
 	  pricing.profiles.forEach(function(profile) {
 		  $("#profile-title-" + profile.id).html(profile.title);
 		  $("#profile-rate-" + profile.id).html(profile.rate);
       $("#profile-total-" + profile.id).html(profile.amount);
 	  });
-	  pricing.sections.forEach(function(section)) {
+    // Updating sections
+	  pricing.sections.forEach(function(section) {
 		  $("#section-" + section.id).html(section.title);
-		  section.lines.forEach(function(line)) {
-			  $("#line-" + line.id).html(line.title); 
-		  }
-	  }
+		  $("#section-total-" + section.id).html(section.price);
+	    // Updating section details
+      section.details.forEach(function(detail) {
+			  $("#section-detail-" + section.id + "-" + detail.profileId).html(detail.amount);
+		  });
+	    // Updating lines
+		  section.lines.forEach(function(line) {
+			  $("#line-" + line.id).html(line.title);
+			  $("#line-total-" + line.id).html(line.price);
+			  // Updating line details
+			  line.details.forEach(function(detail) {
+				  $("#detail-" + line.id + "-" + detail.profileId).html(detail.amount);
+			  });
+		  });
+	  });
   }
-    var getJSON = function() {
-    	$.getJSON(
-    			"@{Pricings.getPricingJSON(pricing.id)}", 
-    			function(data){
-    				  refreshPricing(data);
-    			}
-  			);
-    };
+	$.getJSON(
+		"@{Pricings.getPricingJSON(pricing.id)}", 
+		function(data){
+			pricingRefresh(data);
+		}
+	);
+};
 </script>

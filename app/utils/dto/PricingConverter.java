@@ -75,8 +75,13 @@ public class PricingConverter {
 		lineDto.title = line.title;
 		lineDto.price = line.getPrice();
 		lineDto.details = new ArrayList<DetailDTO>();
-		for (Detail detail : line.details) {
-			lineDto.details.add(convertDetailToDTO(detail));
+		for (Profile profile : line.section.pricing.profiles) {
+			Detail detail = line.getDetailByProfile(profile);
+			if (detail != null) {
+				lineDto.details.add(convertDetailToDTO(detail));
+			} else {
+				lineDto.details.add(new DetailDTO(profile.id, 0D));
+			}
 		}
 		
 		return lineDto;

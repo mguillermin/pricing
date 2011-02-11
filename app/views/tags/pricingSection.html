@@ -11,7 +11,7 @@
     #{/if}
   </td>
   #{list items:_pricing.profiles, as:'profile'}
-    <td class="profile">${_section.getAmountByProfile(profile).format('#.##')}</td>
+    <td class="profile"><span id="section-detail-${_section.id}-${profile.id}">${_section.getAmountByProfile(profile).format('#.##')}</span></td>
   #{/list}
-  <td class="total">${_section.getPrice().format('# ###.##')} &euro;</td>
+  <td class="total"><span id="section-total-${_section.id}">${_section.getPrice().format('# ###.##')}</span> &euro;</td>
 </tr>
