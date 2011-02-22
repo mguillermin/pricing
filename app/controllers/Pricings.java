@@ -19,6 +19,7 @@ import models.Detail;
 import models.Line;
 import models.Pricing;
 import models.PricingTag;
+import models.PricingUpdateChannel;
 import models.Profile;
 import models.Section;
 
@@ -43,7 +44,8 @@ import utils.dto.PricingDTO;
 public class Pricings extends Controller {
 
 	public static void edit(Long id) {
-		show(id, true);
+		Pricing pricing = Pricing.findById(id);
+		render(pricing);
 	}
 	/**
 	 * Action displaying the pricing
@@ -459,5 +461,7 @@ public class Pricings extends Controller {
 	 */
 	protected static void updatePricing(Pricing pricing) {
 		pricing.update(new Date(), Security.connected());
+		// Notifying the update
+		PricingUpdateChannel.get(pricing.id).updatePricing(pricing.id);
 	}
 }

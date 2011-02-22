@@ -1,5 +1,8 @@
 package models;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -8,6 +11,8 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import org.hibernate.envers.AuditReader;
+import org.hibernate.envers.AuditReaderFactory;
 import org.hibernate.envers.Audited;
 
 import play.data.validation.Required;
@@ -63,4 +68,20 @@ public class Profile extends Model {
 		}
 	}
 	
+	public Map<Number, Profile> getRevisions() {
+		Map<Number, Profile> revisions = new HashMap<Number, Profile>();
+		AuditReader ar = AuditReaderFactory.get(em());
+		List<Number> revisionNumbers = ar.getRevisions(this.getClass(), id);
+		for (Number revisionNumber : revisionNumbers) {
+			Profile profile = ar.find(this.getClass(), id, revisionNumber);
+			revisions.put(revisionNumber, profile);
+		}
+		return revisions;
+	}
+	
+	public static Profile findByIdAndRevision(Long id, Number revision) {
+		AuditReader ar = AuditReaderFactory.get(em());
+		Profile profile = ar.find(Profile.class, id, revision);
+		return profile;
+	}
 }

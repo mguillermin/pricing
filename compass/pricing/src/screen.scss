@@ -177,9 +177,15 @@ table.pricing {
     th.profile {
       width: 70px;
       text-align: center;
+      & input {
+        width: 50px;
+      }
     }
     td.profile, td.total, th.rate {
       text-align: right;
+      & input {
+        width: 50px;
+      }
     }
     th.total {
       width: 130px;

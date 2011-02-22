@@ -128,7 +128,7 @@ body.two-col #content { display: inline; float: left; margin-right: 0; width: 63
 
 .logo { text-indent: -119988px; overflow: hidden; text-align: left; }
 
-#header h1 { color: #146fb1; background: url('../images/sprites.png?1297247298') no-repeat; padding-left: 148px; height: 44px; padding-top: 10px; display: inline; float: left; }
+#header h1 { color: #146fb1; background: url('../images/sprites.png?1297594889') no-repeat; padding-left: 148px; height: 44px; padding-top: 10px; display: inline; float: left; }
 #header .welcome { display: inline; float: right; font-style: italic; }
 
 #footer { text-align: center; background: white; margin-top: 10px; }
@@ -141,16 +141,16 @@ body tr.even td { background: none repeat scroll 0 0 #f7f7f7; }
 
 body table.pricing-list td { text-align: center; }
 
-a.logout { background: url('../images/sprites.png?1297247298') 0 -59px no-repeat; padding-left: 21px; }
-a.show { background: url('../images/sprites.png?1297247298') 0 -75px no-repeat; padding-left: 21px; }
-a.edit { background: url('../images/sprites.png?1297247298') 0 -91px no-repeat; padding-left: 21px; }
-a.add { background: url('../images/sprites.png?1297247298') 0 -107px no-repeat; padding-left: 21px; }
-a.insert { background: url('../images/sprites.png?1297247298') 0 -123px no-repeat; padding-left: 21px; }
-a.delete { background: url('../images/sprites.png?1297247298') 0 -139px no-repeat; padding-left: 21px; }
-a.up { background: url('../images/sprites.png?1297247298') 0 -155px no-repeat; padding-left: 21px; }
-a.down { background: url('../images/sprites.png?1297247298') 0 -171px no-repeat; padding-left: 21px; }
-a.left { background: url('../images/sprites.png?1297247298') 0 -187px no-repeat; padding-left: 21px; }
-a.right { background: url('../images/sprites.png?1297247298') 0 -203px no-repeat; padding-left: 21px; }
+a.logout { background: url('../images/sprites.png?1297594889') 0 -59px no-repeat; padding-left: 21px; }
+a.show { background: url('../images/sprites.png?1297594889') 0 -75px no-repeat; padding-left: 21px; }
+a.edit { background: url('../images/sprites.png?1297594889') 0 -91px no-repeat; padding-left: 21px; }
+a.add { background: url('../images/sprites.png?1297594889') 0 -107px no-repeat; padding-left: 21px; }
+a.insert { background: url('../images/sprites.png?1297594889') 0 -123px no-repeat; padding-left: 21px; }
+a.delete { background: url('../images/sprites.png?1297594889') 0 -139px no-repeat; padding-left: 21px; }
+a.up { background: url('../images/sprites.png?1297594889') 0 -155px no-repeat; padding-left: 21px; }
+a.down { background: url('../images/sprites.png?1297594889') 0 -171px no-repeat; padding-left: 21px; }
+a.left { background: url('../images/sprites.png?1297594889') 0 -187px no-repeat; padding-left: 21px; }
+a.right { background: url('../images/sprites.png?1297594889') 0 -203px no-repeat; padding-left: 21px; }
 
 table.pricing { border: thin solid black; border-collapse: collapse; margin-bottom: 10px; }
 table.pricing tr td, table.pricing tr th { border: thin solid black; padding: 2px 5px 2px 5px; }
@@ -158,7 +158,9 @@ table.pricing tr.section { background: #5cb1e8; color: white; }
 table.pricing tr.total, table.pricing tr.total a { background: #5cb1e8; color: white; font-size: larger; font-weight: bold; }
 table.pricing tr th.title { width: 500px; }
 table.pricing tr th.profile { width: 70px; text-align: center; }
+table.pricing tr th.profile input { width: 50px; }
 table.pricing tr td.profile, table.pricing tr td.total, table.pricing tr th.rate { text-align: right; }
+table.pricing tr td.profile input, table.pricing tr td.total input, table.pricing tr th.rate input { width: 50px; }
 table.pricing tr th.total { width: 130px; }
 table.pricing ul.actions { float: right; margin: 0; padding: 0; }
 table.pricing ul.actions li { display: inline; float: left; }

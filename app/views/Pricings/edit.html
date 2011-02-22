@@ -23,29 +23,22 @@
   	#{list items:pricing.profiles, as:'profile'}
   		<th class="profile">
         <span id="profile-title-${profile.id}" class="profile-title">${profile.title}</span>
-        #{if editable}
-          <ul class="actions">
-            <li><a href="@{Pricings.deleteProfile(profile.id)}" class="delete"></a></li>
-            <li><a href="@{Pricings.profileUp(profile.id)}" class="left"></a></li>
-            <li><a href="@{Pricings.profileDown(profile.id)}" class="right"></a></li>
-          </ul>
-        #{/if}
       </th>
   	#{/list}
   	<th class="total" rowspan="2">&{'pricing.col.total'}</th>
   </tr>
   <tr>
   	#{list items:pricing.profiles, as:'profile'}
-  		<th class="rate"><span id="profile-rate-${profile.id}" class="profile-rate">${profile.rate.format('###.##')}</span> &euro;</th>
+  		<th class="rate"><input id="profile-rate-${profile.id}" class="profile-rate" value="${profile.rate.format('###.##')}" /></th>
   	#{/list}
   </tr>
   #{if pricing.sections && pricing.sections.size() >= 1}
     #{list items:pricing.sections, as:'section'}
     
-      #{pricingSection section:section, pricing:pricing, editable:editable /}
+      #{pricingSectionEdit section:section, pricing:pricing /}
           	
       #{list items:section.lines, as:'line'}
-        #{pricingLine line:line, pricing:pricing, editable:editable /}
+        #{pricingLineEdit line:line, pricing:pricing, editable:editable /}
   	  #{/list}
     #{/list}
   #{/if}
@@ -57,61 +50,8 @@
     <td class="total"><span id="pricing-total">${pricing.getPrice().format('# ###.##')}</span> &euro;</td>
   </tr>
 </table>
-
-<ul class="pricing-actions">
-  #{if editable}
-    <li><a href="@{Pricings.addSection(pricing.id)}" class="add" id="pricing-section-add">&{'pricing.section.add'}</a></li>
-    <li><a href="@{Pricings.addProfile(pricing.id)}" class="add">&{'pricing.profile.add'}</a></li>
-    <li><a href="javascript:void(0)" class="edit" id="toggle-edition">&{'pricing.edit.controls.toggle'}</a></li>
-  #{/if}
-  #{else}
-    <li><a href="@{Pricings.edit(pricing.id)}" class="edit">&{'pricing.edit'}</a></li>
-  #{/else}
-  <li><a href="@{Pricings.export(pricing.id)}">&{'pricing.export'}</a></li>
-</ul>
-
-#{pricingTagList pricing:pricing.getCurrentVersion(), editable:editable /}
-
-#{if editable}
-  #{pricingTagEdit pricing:pricing /}
-#{/if}
-
-#{if editable}
-  <script type="text/javascript">
-    var refreshPricing = function() {
-      $("body").load('@{Pricings.show(pricing.id, editable)}');
-    }
-    var refreshHistory = function() {
-      $("#pricing-history").load('@{Pricings.showHistory(pricing.id)}');
-  	}
-
-    var bindEditables = function() {
-      $(".detail-amount").editable('@{Pricings.editDetail()}', {
-        callback: refreshPricing
-      });
-      $(".profile-title").editable('@{Pricings.editProfileTitle()}', {
-    	    cssclass: 'editable'
-      });
-      $(".profile-rate").editable('@{Pricings.editProfileRate()}', {
-    	  callback: refreshPricing,
-        cssclass: 'editable'
-      });
-    
-      var editableOptions = {
-        cancel: 'Cancel',
-        submit: 'Ok',
-        cssclass: 'editable',
-        width: 250
-      };
-      $(".section-title").editable('@{Pricings.editSectionTitle()}', editableOptions);
-      $(".line-title").editable('@{Pricings.editLineTitle()}', editableOptions);
-      $(".pricing-code").editable('@{Pricings.editPricingCode()}', editableOptions);
-      $(".pricing-title").editable('@{Pricings.editPricingTitle()}', editableOptions);
-    };
-    bindEditables();
-  </script>
-#{/if}
 <script type="text/javascript">
+var refreshFromJSON = function() {
 	var pricingRefresh = function(pricing) {
 	  // Updating pricing
 	  $("#pricing-code").html(pricing.code);
@@ -141,8 +81,7 @@
 			  });
 		  });
 	  });
-  };
-var getJSON = function() {
+  }
 	$.getJSON(
 		"@{Pricings.getPricingJSON(pricing.id)}", 
 		function(data){
@@ -150,19 +89,10 @@ var getJSON = function() {
 		}
 	);
 };
-
-var waitUpdates = #{jsAction @PricingUpdater.waitUpdate(pricing.id) /}
-// Retrieve new messages
-var getUpdate = function() {
-    $.ajax({
-        url: waitUpdates(),
-        success: function(data) {
-            pricingRefresh(data);
-            $('#pricing').effect('highlight');
-            getUpdate()
-        },
-        dataType: 'json'
-    });
+var bindEditables = function() {
+	$("table#pricing input").blur(function(){
+		console.log($(this).val());
+	});
 };
-getUpdate();
+bindEditables();
 </script>

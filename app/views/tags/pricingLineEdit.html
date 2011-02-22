@@ -1,0 +1,19 @@
+*{ Tag used to display a <tr> representing a section }*
+<tr class="line">
+  <td>
+    <span id="line-${_line.id}" class="line-title">${_line.title}</span>
+  </td>
+  #{list items:_pricing.profiles, as:'profile'}
+    #{set detail:_line.getDetailByProfile(profile) /}
+    <td class="profile">
+      #{if detail}
+        #{set amount: detail.amount.format('#.##') /}
+      #{/if}
+      #{else}
+        #{set amount: "0" /}
+      #{/else}
+      <input id="detail-${_line.id}-${profile.id}" class="detail-amount" value="${amount}" />
+    </td>
+  #{/list}
+  <td class="total"><span id="line-total-${_line.id}">${_line.getPrice().format('# ###.##')}</span> &euro;</td>
+</tr>

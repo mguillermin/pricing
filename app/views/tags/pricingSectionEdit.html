@@ -1,0 +1,9 @@
+*{ Tag used to display a <tr> representing a section }*
+<tr class="section">
+  <td><span id="section-${_section.id}" class="section-title">${_section.title}</span> 
+  </td>
+  #{list items:_pricing.profiles, as:'profile'}
+    <td class="profile"><span id="section-detail-${_section.id}-${profile.id}">${_section.getAmountByProfile(profile).format('#.##')}</span></td>
+  #{/list}
+  <td class="total"><span id="section-total-${_section.id}">${_section.getPrice().format('# ###.##')}</span> &euro;</td>
+</tr>
